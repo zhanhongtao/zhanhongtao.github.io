@@ -399,36 +399,32 @@
   </ul>
   <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程，即：相互不阻塞。</a></p>
   <p>查看开发者工具中 animation 相关事件。</p>
-  <h2>Motion</h2>
-  <ul>
-    <li>定义 motion-path:  path({svg-path});</li>
-    <li>定义 motion-rotation: auto[跟随 path]/reverse[相当于 auto 180deg]/auto XDeg[先固定位置，再 auto]/reverse XDeg/XDeg[固定位置]</li>
-    <li>定义 animation - 见上面</li>
-    <li>定义@keyframes.<pre><code>@keyframes {
-  from {
-    motion-offset: 0%;
-  }
-  to {
-    motion-offset: 100%;
-  }
-}
-</code></pre></li>
-  </ul>
-  <div class="motion-box">
-    <div class="motion-item"></div>
-    <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-        <desc>Created with Sketch.</desc>
-        <defs></defs>
-        <path d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244" id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
-    </svg>
-  </div>
-  <h2>新语法 (offset)</h2>
-  <ul>
-    <li>定义 offset-path:  path({svg-path});</li>
-    <li>定义 offset-rotation: auto[跟随 path]/reverse[相当于 auto 180deg]/auto Xdeg[先固定位置，再 auto]/reverse Xdeg/Xdeg[固定位置]</li>
-    <li>定义 animation - 见上面</li>
-    <li>定义@keyframes.<pre><code>@keyframes {
+  <h2><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset#formal_syntax">offset</a> - 代替原 motion 语法</h2>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-anchor">offset-anchor</a></dt>
+    <dd>定义相对位置关系</dd>
+  </dl>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path">offset-path</a></dt>
+    <dd>ray/url/circle/ellipse/inset/polygon/path/xywh/rect</dd>
+    <dd>content-box/padding-box/border-box/fill-box/stroke-box/view-box</dd>
+  </dl>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance">offset-distance</a></dt>
+    <dd>定义在 path 上偏移距离 example, offset-distance: 50%; </dd>
+  </dl>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-position">offset-position</a></dt>
+    <dd>normal = 50% 50%</dd>
+    <dd>auto = left top</dd>
+  </dl>
+  <dl>
+    <dt><a href="">offset-rotation</a></dt>
+    <dd>auto[跟随 path]/reverse[相当于 auto 180deg]/auto Xdeg[先固定位置，再 auto]/reverse Xdeg/Xdeg[固定位置]</dd>
+  </dl>
+  <dl>
+    <dt>定义 animation - 见上面，定义@keyframes.</dt>
+    <dd><pre><code>@keyframes {
   from {
     offset-distance: 0%;
   }
@@ -436,8 +432,8 @@
     offset-distance: 100%;
   }
 }
-</code></pre></li>
-  </ul>
+</code></pre></dd>
+  </dl>
   <style>
     .motion-box {
       width: 502px;
@@ -446,16 +442,6 @@
       position: relative;
       z-index: 1;
     }
-    .motion-item {
-      position: absolute;
-      top: 0;
-      width: 10px;
-      height: 10px;
-      border-radius: 100%;
-      background-color: red;
-      motion-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
-      animation: move 4s ease infinite;
-    }
     .offset-item {
       position: absolute;
       top: 0;
@@ -463,27 +449,19 @@
       height: 10px;
       border-radius: 100%;
       background-color: red;
+      offset-anchor: 50%; /* 定位 offset-item 与 path 的相对关系 */
+      offset-position: top;
       offset-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
       animation: offset-move 4s ease infinite;
     }
     @keyframes offset-move {
       from {
         offset-rotation: reverse;
-        offset-distance: 0%;
+        offset-distance: 10%;
       }
       100% {
         offset-rotation: reverse;
-        offset-distance: 100%;
-      }
-    }
-    @keyframes move {
-      from {
-        motion-rotation: reverse;
-        motion-offset: 0%;
-      }
-      100% {
-        motion-rotation: reverse;
-        motion-offset: 100%;
+        offset-distance: 90%;
       }
     }
   </style>
