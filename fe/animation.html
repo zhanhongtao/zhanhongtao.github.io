@@ -403,24 +403,34 @@
   <dl>
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-anchor">offset-anchor</a></dt>
     <dd>定义相对位置关系</dd>
+    <dd>auto = transform-origin</dd>
+    <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position_value">&lt;position&gt;</a></dd>
   </dl>
   <dl>
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path">offset-path</a></dt>
-    <dd>ray/url/circle/ellipse/inset/polygon/path/xywh/rect</dd>
-    <dd>content-box/padding-box/border-box/fill-box/stroke-box/view-box</dd>
+    <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/ray">ray</a></dd>
+    <dd>url</dd>
+    <dd>circle/ellipse/inset/polygon/path/xywh/rect/shape - <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape">basic shape</a></dd>
+    <dd>content-box/padding-box/border-box/fill-box/stroke-box/view-box -  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-edge#values">box-edge</a></dd>
   </dl>
   <dl>
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance">offset-distance</a></dt>
-    <dd>定义在 path 上偏移距离 example, offset-distance: 50%; </dd>
+    <dd>定义在 path 上的偏移距离</dd>
+    <dd>example: <code>offset-distance: 50%;</code></dd>
   </dl>
   <dl>
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-position">offset-position</a></dt>
-    <dd>normal = 50% 50%</dd>
-    <dd>auto = left top</dd>
+    <dd>path 缺省起点位置 [example: ray(0deg); circle(80px)] 时，使用 offset-position 定义</dd>
+    <dd>normal[default] = <code>50% 50%</code></dd>
+    <dd>auto = <code>left top</code></dd>
+    <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position_value">&lt;position&gt;</a></dd>
   </dl>
   <dl>
-    <dt><a href="">offset-rotation</a></dt>
-    <dd>auto[跟随 path]/reverse[相当于 auto 180deg]/auto Xdeg[先固定位置，再 auto]/reverse Xdeg/Xdeg[固定位置]</dd>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate">offset-rotation</a></dt>
+    <dd>auto - 从 x 轴正方向旋转到 path 方向的角度</dd>
+    <dd>angle - 旋转固定角度 (ps: 向上是 0deg)</dd>
+    <dd>auto &lt;angle&gt; - 在 auto 值基础上累加 angle 值得到最终旋转角度</dd>
+    <dd>reverse - <code>auto 180deg</code></dd>
   </dl>
   <dl>
     <dt>定义 animation - 见上面，定义@keyframes.</dt>
@@ -438,7 +448,7 @@
     .motion-box {
       width: 502px;
       height: 202px;
-      background-color: #eee;
+      background-color: #faf7f7;
       position: relative;
       z-index: 1;
     }
@@ -447,32 +457,102 @@
       top: 0;
       width: 10px;
       height: 10px;
-      border-radius: 100%;
-      background-color: red;
-      offset-anchor: 50%; /* 定位 offset-item 与 path 的相对关系 */
-      offset-position: top;
-      offset-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
+      border-radius: 0%;
       animation: offset-move 4s ease infinite;
     }
+    .offset-item-box {
+      background-color: red;
+      offset-path: border-box;
+    }
+    .offset-item-path {
+      background-color: green;
+      offset-anchor: 50%;
+      offset-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
+    }
+    .offset-item-ray {
+       /*
+        <angle>
+          0deg 沿着 Y 轴向上；按顺时针方向是正值
+          https://developer.mozilla.org/en-US/docs/Web/CSS/angle
+        <size>
+          closest-side[default] 起点与包含块最近的边的距离，如果起点在边上，size=0
+          closest-corner        起点与包含块最近的角的距离，如果起点在角上，size=0
+          farthest-side         起点与包含块最远的边的距离
+          farthest-corner       起点与包含块最远的角的距离
+          sides                 起点与包含块边相交点的距离，如果不相交时，size=0
+        contain
+          保证在包含块内 - Math.max(distance - width/2, distance - height/2)
+        at <position>
+          缺省时，使用 offset-position；offset-position 默认值 50% 50%
+          和 offset-position 同时存在时，优先级高于 offset-position
+      */
+      background-color: lightblue;
+      offset-path: ray(0deg farthest-corner contain at bottom 0 right 25%);
+    }
+    .offset-item-rect {
+      background-color: #9d93ec;
+      /*
+        rect
+        https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/rect
+        第一个值和第三个值，从 top 拉线 - 需要保证第一个值小于第三个值，否则切成空
+        第二个值和第四个值，从 left 拉线 - 需要保证第四个值小于第二个值，否则切成空
+        值可以是 auto - 四个位置的默认值是：0, 100%, 100%, 0
+      */
+      offset-path: rect(50px calc(100% - 50px) calc(100% - 50px) 50px round 4px);
+    }
+    .offset-item-inset {
+      background-color: #559b24;
+      /*
+        inset 语法简单，从 top/right/bottom/left 四个方向计算值
+        https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/inset
+      */
+      offset-path: inset(80px round 4px);
+    }
+    .offset-item-circle {
+      background-color: #f0744b;
+      /*
+        circle
+          <share-radius>
+            closest-side
+            farthest-side
+        https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/circle
+      */
+      offset-path: circle(80px);
+      offset-position: right -80px top 50%;
+    }
+    .offset-item-xywh {
+      background-color: #f801ba;
+      /*
+        https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/xywh
+        xywh(x y w h round ...)
+      */
+      offset-path: xywh(10px 10px 50% 50%);
+    }
     @keyframes offset-move {
-      from {
+      0% {
         offset-rotation: reverse;
-        offset-distance: 10%;
+        offset-distance: 0%;
       }
       100% {
         offset-rotation: reverse;
-        offset-distance: 90%;
+        offset-distance: 100%;
       }
     }
   </style>
   <div class="motion-box">
-    <div class="offset-item"></div>
     <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-        <desc>Created with Sketch.</desc>
-        <defs></defs>
-        <path d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244" id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
+      <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+      <desc>Created with Sketch.</desc>
+      <defs></defs>
+      <path d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244" id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
     </svg>
+    <div class="offset-item offset-item-path"></div>
+    <div class="offset-item offset-item-ray"></div>
+    <div class="offset-item offset-item-box"></div>
+    <div class="offset-item offset-item-rect"></div>
+    <div class="offset-item offset-item-inset"></div>
+    <div class="offset-item offset-item-circle"></div>
+    <div class="offset-item offset-item-xywh"></div>
   </div>
   <h2>相关文档</h2>
   <ul>
