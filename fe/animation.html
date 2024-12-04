@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
-  <title>Animation Event</title>
+  <title>Animation</title>
   <style>
   /*
     * from[0%]/to[100%]
@@ -119,7 +119,10 @@
   }
   .paused .step-twitter-love,
   .paused .timing-function,
-  .paused .step-demo {
+  .paused .step-demo,
+  .paused .logo-sogou,
+  .paused .offset-item,
+  .paused .composition-demo {
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
   }
@@ -187,6 +190,7 @@
       <div class="logo-sogou"></div>
     </div>
   </div>
+
   <h2>CSS<div class="step-twitter-love"></div></h2>
   <dl>
     <dt>animation-name</dt>
@@ -401,7 +405,8 @@
   </ul>
   <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程，即：相互不阻塞。</a></p>
   <p>查看开发者工具中 animation 相关事件。</p>
-  <h2><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset#formal_syntax">offset</a> - 代替原 motion 语法</h2>
+
+  <h3><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset#formal_syntax">offset</a> - 代替原 motion 语法</h3>
   <dl>
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-anchor">offset-anchor</a></dt>
     <dd>定义相对位置关系</dd>
@@ -556,6 +561,7 @@
     <div class="offset-item offset-item-circle"></div>
     <div class="offset-item offset-item-xywh"></div>
   </div>
+
   <h2>相关文档</h2>
   <ul>
     <li><a href="https://www.w3.org/TR/css3-animations/" target="_blank">https://www.w3.org/TR/css3-animations/</a></li>
