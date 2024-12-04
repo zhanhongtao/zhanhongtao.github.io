@@ -213,16 +213,18 @@
     <dd>设置动画重复次数。[n | infinite]</dd>
   </dl>
   <dl>
-    <dt>animation-direction</dt>
-    <dd>设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行.[normal | reverse | alternate | alternate-reverse]</dd>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction">animation-direction</a></dt>
+    <dd>设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行。</dd>
+    <dd>normal | reverse | alternate | alternate-reverse</dd>
   </dl>
   <dl>
-    <dt>animation-fill-mode</dt>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode">animation-fill-mode</a></dt>
     <dd>描述动画开始前/结束后，@keyframes 中定义的样式对元素本身样式的影响</dd>
-    <dd>normal 默认情况下，不影响元素原有样式</dd>
-    <dd>backwards 动画开始前，应用动画开始时样式，受 animation-direction 影响。direction 为 normal/alternate 时，应用 from 样式; 为 reverse/alternate-reverse 时，应用 to 样式;</dd>
-    <dd>forwards 动画结束后，应用动画结束时样式。当 animation-iteration-count 为 0 时，forwards 和 backwards 相同;</dd>
-    <dd>both 同时使用 backwards 和 forwards 规则</dd>
+    <dd>none 默认情况下，动画开始前 [animation-delay 这段时间] 和动画结束后，保留元素最初样式</dd>
+    <dd>backwards 动画开始前，应用动画定义中的开始样式，动画结束后，回退到元素初始样式。受 animation-direction/animation-iteration-count 影响。单次情况下：direction 为 normal/alternate 时，应用 from 样式; 为 reverse/alternate-reverse 时，应用 to 样式;</dd>
+    <dd>forwards 动画开始前，保持元素最初样式，动画结束后，应用动画定义中的结束样式。当 animation-iteration-count 为 0 时，forwards 和 backwards 相同;</dd>
+    <dd>both 同时使用 backwards 和 forwards 规则; 即：动画开始前应用动画定义中的开始样式，动画结束后应用动画定义中的结束样式</dd>
+    <dd>ps: 添加 <code>animation-delay: 1s;</code> 看动画效果</dd>
   </dl>
   <dl>
     <dt>animation-play-state</dt>
