@@ -337,7 +337,7 @@
   </dl>
 
   <section class="animation-timeline">
-    <h3>Animation Timeline</h3>
+    <h3>Animation Timeline <small><a href="https://caniuse.com/mdn-css_properties_animation-timeline">caniuse</a></small></h3>
     <dl>
       <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline">animation-timeline</a></dt>
       <dd>none</dd>
@@ -349,7 +349,7 @@
       <dt>animation-range-end</dt>
     </dl>
 
-    <h3>Scroll Timeline</h3>
+    <h3>Scroll Timeline <small><a href="https://caniuse.com/mdn-css_properties_scroll-timeline">caniuse</a></small></h3>
     <dl>
       <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-name">scroll-timeline-name</a></dt>
       <dd>使用 css 中<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">自定义变量的命名方式</a>命名，用来标识当前具有滚动条的元素滚动进度作为 timeline 提供给 animation 使用</dd>
@@ -365,7 +365,7 @@
       <dd>因为 scroll-timeline-axis 有默认值，可以忽略不写，只定义 timeline-name 即可</dd>
       <dd>
         <div class="scroller-wrap">
-          <div class="scroller" style="scroll-timeline-name: --scroll;">
+          <div class="scroller use-scroll-timeline-name" style="scroll-timeline-name: --scroll;">
             <div class="scroll-ani-element scroll-ani-element-inner" style="animation-timeline: --scroll"></div>
           </div>
         </div>
@@ -381,7 +381,7 @@
       <dd>scroll(nearest, inline), scroll(x nearest)  关键字是固定的几个，位置舒徐可以任意写，都可以识别</dd>
       <dd>
         <div class="scroller-wrap">
-          <div class="scroller">
+          <div class="scroller use-scroll-fn">
             <div class="scroll-ani-element scroll-ani-element-inner" style="animation-timeline: scroll()"></div>
           </div>
         </div>
@@ -403,11 +403,11 @@
     <dl>
       <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope" target="_blank">timeline-scope</a></dt>
       <dd>*-timeline-name 存在 scope 概念，只能作用于后代元素上</dd>
-      <dd>而 timeline-scope 属性可以在 *-timeline-name 元素的祖先元素上定义，意思是把 scope 向上提高，然后作用于更多元素上</dd>
+      <dd>可以在 *-timeline-name 元素的祖先元素上定义 timeline-scope: --custom-timeline-name 属性，意思是把 scope 向上提高，然后作用于更多后代元素上</dd>
       <dd>
         <div class="scroll-ani-element" style="position: fixed; top: 0; left: 0; animation-timeline: --scroll-scope"></div>
         <div class="scroller-wrap">
-          <div class="scroller" style="scroll-timeline-name: --scroll-scope"></div>
+          <div class="scroller use-timeline-scope" style="scroll-timeline-name: --scroll-scope"></div>
         </div>
       </dd>
     </dl>
@@ -429,6 +429,31 @@
         content: '';
         display: block;
         height: 1000px;
+      }
+      /*
+        使用 svg[text] 做背景说明，background-attachment: scroll 来固定位置
+        需要一个工具把 svg 转化为 data:url 格式
+        https://developer.mozilla.org/en-US/docs/Web/URI/Schemes/data
+        https://yoksel.github.io/url-encoder/
+        https://www.svgbackgrounds.com/tools/svg-to-css/
+        https://www.svgviewer.dev/
+        https://www.zhangxinxu.com/wordpress/2018/08/css-svg-background-image-base64-encode/
+      */
+      /* svg 文字说明 */
+      .scroller {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        background-attachment: scroll;
+      }
+      .use-scroll-timeline-name {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50'  alignment-baseline='middle' text-anchor='middle'%3E scroll-timeline-name: --scroll;%3C/text%3E%3C/svg%3E");
+      }
+      .use-scroll-fn {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50'  alignment-baseline='middle' text-anchor='middle'%3E animation-timeline: scroll();%3C/text%3E%3C/svg%3E");
+      }
+      .use-timeline-scope {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50' alignment-baseline='middle' text-anchor='middle'%3E%3Ctspan dx='0' dy='0em'%3E .parent %7B timeline-scope: --scroll %7D %3C/tspan%3E%3Ctspan x='150' dy='1.2em'%3E%0A.element %7B animation-timeline: --scroll %7D%3C/tspan%3E%3C/text%3E%3C/svg%3E");
       }
       .scroll-ani-element-inner {
         /*
@@ -498,8 +523,10 @@
           需要让 height: 100px 到 height: fit-content 的 transition 生效，
           需要设置 interpolate-size: allow-keywords;
           2024/12/05: 把 interpolate-size 放到 :root 上会导致部分 scroll-timeline 失效
+          https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
+          https://caniuse.com/mdn-css_properties_interpolate-size
         */
-        transition: all 1.5s ease;
+        transition: height 1.5s ease;
         interpolate-size: allow-keywords;
       }
       :root {
@@ -507,6 +534,13 @@
       }
       .scroll-ani-element-self-trigger {
         height: fit-content;
+        /*
+          除了使用 interpolate-size: allow-keywords 外，还可以使用 calc-size 来实现
+          https://developer.chrome.com/docs/css-ui/animate-to-height-auto
+          https://drafts.csswg.org/css-values-5/#calc-size
+          https://caniuse.com/mdn-css_types_calc-size
+        */
+        height: calc-size(fit-content, size);
       }
       .scroll-ani-element-self::after {
         display: none;
