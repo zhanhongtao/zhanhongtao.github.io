@@ -344,22 +344,36 @@
       <dd>auto[default] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentTimeline">DocumentTimeline</a></dd>
       <dd>--scroll-timeline-name, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll">scroll()</a></dd>
       <dd>--view-timeline-name, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view">view()</a></dd>
-      <dt>animation-range</dt>
+
       <dt>animation-range-start</dt>
+      <dd>动画开始位置</dd>
+      <dd>normal[default][0%]/percentage/length</dd>
+      <dd>view-timeline 情况下，还有额外几个值：cover/contain/entry/entry-crossing/exist/exist-crossing</dd>
+      <dd><mark>重要提醒：subject 尺寸可能小于/等于/大于 viewport 尺寸</mark></dd>
+      <dd>cover: subject 与 viewport 相交</dd>
+      <dd>contain: subject 在视觉上完全包含/被包含 viewport</dd>
+      <dd>常见情况是，subject 的尺寸小于 viewport 尺寸：entry/entry-crossing 的 100% 表示 subject 完全进入 viewport</dd>
+      <dd>当 subject 的尺寸大于 viewport 尺寸时：entry 100% 表示 subject 刚好覆盖 viewport; entry-crossing 100% 表示 subject 完整穿过 entry 线</dd>
+      <dd>可以在<a href="https://scroll-driven-animations.style/tools/view-timeline/ranges/" target="_blank">view-timeline-tool</a>查看效果</dd>
+
       <dt>animation-range-end</dt>
+      <dd>动画结束位置，和 animation-range-start 对应</dd>
+
+      <dt>上面两个属性的简写形式</dt>
+      <dd><code>animation-range: animation-range-start animation-range-end</code></dd>
+      <dd>当只有一个值时，第二个值为 normal</dd>
+      <dd><code>animation-range: 20%</code> 相当于 <code>animation-range: 20% normal</code></dd>
     </dl>
 
     <h3>Scroll Timeline <small><a href="https://caniuse.com/mdn-css_properties_scroll-timeline">caniuse</a></small></h3>
     <dl>
       <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-name">scroll-timeline-name</a></dt>
       <dd>使用 css 中<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">自定义变量的命名方式</a>命名，用来标识当前具有滚动条的元素滚动进度作为 timeline 提供给 animation 使用</dd>
-    </dl>
-    <dl>
+
       <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-axis">scroll-timeline-axis</a></dt>
       <dd>元素可能在水平/垂直两个方向上都存在滚动条，因此需要指定使用哪个，默认使用逻辑属性 block</dd>
       <dd>block[default]/inline/x/y</dd>
-    </dl>
-    <dl>
+
       <dt>上面两个属性的简写形式</dt>
       <dd><code><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline">scroll-timeline</a>: scroll-timeline-name scroll-timeline-axis;</code></dd>
       <dd>因为 scroll-timeline-axis 有默认值，可以忽略不写，只定义 timeline-name 即可</dd>
@@ -370,8 +384,7 @@
           </div>
         </div>
       </dd>
-    </dl>
-    <dl>
+
       <dt>scroll()</dt>
       <dd>按滚动条进度表示 timeline, 需要有可滚动的元素做 scroller，而 scroll() 函数提供简便方法，也就是匿名 scroll-timeline</dd>
       <dd>scroll(nearest[default]) 默认值，可以省略参数，意思是把最近具有滚动条的祖先元素做 scroller, 按它的滚动进度做 timeline</dd>
@@ -678,34 +691,29 @@
     <dd>定义相对位置关系</dd>
     <dd>auto = transform-origin</dd>
     <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position_value">&lt;position&gt;</a></dd>
-  </dl>
-  <dl>
+
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path">offset-path</a></dt>
     <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/ray">ray</a></dd>
     <dd>url</dd>
     <dd>circle/ellipse/inset/polygon/path/xywh/rect/shape - <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape">basic shape</a></dd>
     <dd>content-box/padding-box/border-box/fill-box/stroke-box/view-box -  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-edge#values">box-edge</a></dd>
-  </dl>
-  <dl>
+
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance">offset-distance</a></dt>
     <dd>定义在 path 上的偏移距离</dd>
     <dd>example: <code>offset-distance: 50%;</code></dd>
-  </dl>
-  <dl>
+
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-position">offset-position</a></dt>
     <dd>path 缺省起点位置 [example: ray(0deg); circle(80px)] 时，使用 offset-position 定义</dd>
     <dd>normal[default] = <code>50% 50%</code></dd>
     <dd>auto = <code>left top</code></dd>
     <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position_value">&lt;position&gt;</a></dd>
-  </dl>
-  <dl>
+
     <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate">offset-rotation</a></dt>
     <dd>auto - 从 x 轴正方向旋转到 path 方向的角度</dd>
     <dd>angle - 旋转固定角度 (ps: 向上是 0deg)</dd>
     <dd>auto &lt;angle&gt; - 在 auto 值基础上累加 angle 值得到最终旋转角度</dd>
     <dd>reverse - <code>auto 180deg</code></dd>
-  </dl>
-  <dl>
+
     <dt>定义 animation - 见上面，定义@keyframes.</dt>
     <dd><pre><code>@keyframes {
   from {
@@ -835,6 +843,7 @@
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations">CSS scroll-driven animations</a></li>
     <li><a href="https://scroll-driven-animations.style/">scroll-driven-animations</a></li>
     <li><a href="https://slidr.io/bramus/scroll-driven-animations-and-view-transitions-2023-06-09-css-day#1">scroll-driven-animations-and-view-transitions</a></li>
+    <li><a href="https://github.com/flackr/scroll-timeline?tab=readme-ov-file">scroll-timeline</a></li>
   </ul>
   <script>
     var demo = document.getElementById( 'demo' );
