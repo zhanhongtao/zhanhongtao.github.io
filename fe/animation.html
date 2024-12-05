@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <title>Animation</title>
   <style>
   /*
@@ -74,13 +74,13 @@
   }
 
   .logo-sogou-wrap {
-    padding: 30px;
+    padding: 16px 8px;
     background-color: #9d93ec;
-    display: inline-block;
+    max-width: 577px;
   }
   .logo-sogou {
-    width: 577px;
-    height: 64px;
+    width: 100%;
+    aspect-ratio: 577 / 64;;
     background: url(./images/logo-sogou-min.png) no-repeat center 0;
     background-size: 100% 2400%;
     -webkit-animation: logo 4s steps(23, end) .5s infinite;
@@ -402,7 +402,8 @@
     </dl>
     <style>
       .scroller-wrap {
-        width: 30%;
+        width: 80%;
+        max-width: 600px;
         margin: 8px 0;
       }
       .scroller {
