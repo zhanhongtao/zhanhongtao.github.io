@@ -386,6 +386,17 @@
           </div>
         </div>
       </dd>
+      <dd>
+        <div class="scroller-wrap" style="position: relative">
+          <div class="scroller scroll-ani-element-self">
+            The scroll() CSS function can be used with animation-timeline to indicate a scrollable element (scroller) and scrollbar axis that will provide an anonymous scroll progress timeline for animating the current element. The scroll progress timeline is progressed through by scrolling the scroller between top and bottom (or left and right). The position in the scroll range is converted into a percentage of progress — 0% at the start and 100% at the end.
+          </div>
+          <div class="scroll-ani-element-help">
+            <span class="scroll-ani-element-help-default">查看更多</span>
+            <span class="scroll-ani-element-help-toggle">收起</span>
+          </div>
+        </div>
+      </dd>
     </dl>
 
     <h3>scope</h3>
@@ -420,11 +431,19 @@
         height: 1000px;
       }
       .scroll-ani-element-inner {
+        /*
+        有点黑科技味道
+        offset-distance: 0%; // default value
+        */
+        /*
         position: absolute;
-        /* 有点黑科技的味道 */
         offset-path: ray(90deg farthest-side at left top);
-        offset-anchor: left top;  /* 需要设置 top left */
-        offset-distance: 0%; /* default value */
+        offset-anchor: left top;
+        offset-distance: 0%;
+        */
+
+        position: sticky;
+        top: 0;
       }
       .scroll-ani-element {
         height: 4px;
@@ -435,12 +454,87 @@
       .animation-timeline {
         timeline-scope: --scroll-scope;
       }
+      .scroll-ani-element-help {
+        position: relative;
+        width: 100%;
+        z-index: 2;
+        height: 28px;
+        line-height: 28px;
+        background-color: #c4e9aa;
+        translate: 0 -100%;
+        text-align: center;
+        cursor: pointer;
+      }
+      .scroll-ani-element-help-default {
+        display: block;
+      }
+      .scroll-ani-element-help-toggle {
+        display: none;
+      }
+
+      .scroll-ani-element-self {
+        background-color: #e0f4fd;
+        /*
+          animation 需要在 animation-timeline 前面，
+          MDN 中有说明，animation 会把 animation-timeline 重置
+          当 scroll(self) 时，尽管设置了 overflow: hidden, 内容使 scroller 用滚动条时，一样可以让 animation 生效
+        */
+        overflow: hidden;
+        animation: scroll-self 1s;
+        animation-timeline: scroll(self);
+        /*
+          基于上面 scroll(self) 在 overflow: hidden 情况下，让 animation 生效的现象：
+          通过设置 z-index 的方式，让 scroller 层级高于“查看更多”操作按钮，也就是内容不够形成滚动条时，让容器覆盖操作按钮
+          当形成滚动条，animation 动画的 @keyframes 设置 z-index 低于操作按钮
+        */
+        z-index: 3;
+
+        line-height: 1.6;
+        font-size: 16px;
+        padding: 4px 8px;
+        margin-bottom: 0;
+
+        /*
+          需要让 height: 100px 到 height: fit-content 的 transition 生效，
+          需要设置 interpolate-size: allow-keywords;
+        */
+        transition: all 1.5s ease;
+      }
+      :root {
+        interpolate-size: allow-keywords;
+      }
+      .scroll-ani-element-self-trigger {
+        height: fit-content;
+      }
+      .scroll-ani-element-self::after {
+        display: none;
+      }
+      .scroll-ani-element-self-trigger + .scroll-ani-element-help {
+        translate: 0;
+      }
+      .scroll-ani-element-self-trigger + .scroll-ani-element-help .scroll-ani-element-help-default {
+        display: none;
+      }
+      .scroll-ani-element-self-trigger + .scroll-ani-element-help .scroll-ani-element-help-toggle {
+        display: block;
+      }
+      @keyframes scroll-self {
+        from, to {
+          z-index: 1;
+        }
+      }
       @keyframes scroll {
         to {
           width: 100%;
         }
       }
     </style>
+    <script>
+      document.querySelector('.scroll-ani-element-help').addEventListener('click', function () {
+        const scroller = document.querySelector('.scroll-ani-element-self')
+        scroller.classList.toggle('scroll-ani-element-self-trigger')
+      })
+    </script>
   </section>
 
   <h3>Multiple Animation</h3>
