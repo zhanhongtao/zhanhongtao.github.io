@@ -376,7 +376,7 @@
       <dd>按滚动条进度表示 timeline, 需要有可滚动的元素做 scroller，而 scroll() 函数提供简便方法，也就是匿名 scroll-timeline</dd>
       <dd>scroll(nearest[default]) 默认值，可以省略参数，意思是把最近具有滚动条的祖先元素做 scroller, 按它的滚动进度做 timeline</dd>
       <dd>scroll(root) 用文档的根元素做 scroller</dd>
-      <dd>scroll(self) 元素自身做 scroller</dd>
+      <dd>scroll(self) 元素自身做 scroller; ps: 尽管设置 overflow: hidden, 但如果内容使 scroller 存在 [隐藏滚动条] 时，同样可以让 animation 生效</dd>
       <dd>scroll(block[default]/inline/x/y)</dd>
       <dd>scroll(nearest, inline), scroll(x nearest)  关键字是固定的几个，位置舒徐可以任意写，都可以识别</dd>
       <dd>
@@ -497,11 +497,13 @@
         /*
           需要让 height: 100px 到 height: fit-content 的 transition 生效，
           需要设置 interpolate-size: allow-keywords;
+          2024/12/05: 把 interpolate-size 放到 :root 上会导致部分 scroll-timeline 失效
         */
         transition: all 1.5s ease;
+        interpolate-size: allow-keywords;
       }
       :root {
-        interpolate-size: allow-keywords;
+        /* interpolate-size: allow-keywords; */
       }
       .scroll-ani-element-self-trigger {
         height: fit-content;
