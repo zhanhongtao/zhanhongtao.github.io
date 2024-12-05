@@ -307,6 +307,42 @@
     </dd>
   </dl>
 
+  <h3>Animation Timeline</h3>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline">animation-timeline</a></dt>
+    <dd>none</dd>
+    <dd>auto[default] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentTimeline">DocumentTimeline</a></dd>
+    <dd>--scroll-timeline-name, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll">scroll()</a></dd>
+    <dd>--view-timeline-name, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view">view()</a></dd>
+    <dt>animation-range</dt>
+    <dt>animation-range-start</dt>
+    <dt>animation-range-end</dt>
+  </dl>
+
+  <h3>Scroll Timeline</h3>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-name">scroll-timeline-name</a></dt>
+    <dd>使用 css 中<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">自定义变量的命名方式</a>命名，用来标识当前具有滚动条的元素滚动进度作为 timeline 提供给 animation 使用</dd>
+  </dl>
+  <dl>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-axis">scroll-timeline-axis</a></dt>
+    <dd>元素可能在水平/垂直两个方向上都存在滚动条，因此需要指定使用哪个，默认使用逻辑属性 block</dd>
+    <dd>block[default]/inline/x/y</dd>
+  </dl>
+  <dl>
+    <dt>上面两个属性的简写形式</dt>
+    <dd><code><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline">scroll-timeline</a>: scroll-timeline-name scroll-timeline-axis;</code></dd>
+    <dd>因为 scroll-timeline-axis 有默认值，可以忽略不写，只定义 timeline-name 即可</dd>
+  </dl>
+    <dt>scroll()</dt>
+    <dd>按滚动条进度表示 timeline, 需要有可滚动的元素做 scroller，而 scroll() 函数提供简便放法</dd>
+    <dd>scroll(nearest[default]) 默认值，可以省略参数，意思是把最近具有滚动条的祖先元素做 scroller, 按它的滚动进度做 timeline</dd>
+    <dd>scroll(root) 用文档的根元素做 scroller</dd>
+    <dd>scroll(self) 元素自身做 scroller</dd>
+    <dd>scroll(block[default]/inline/x/y)</dd>
+    <dd>scroll(nearest, inline), scroll(x nearest)  关键字是固定的几个，位置舒徐可以任意写，都可以识别</dd>
+  </dl>
+
   <h3>Multiple Animation</h3>
   <p>语法：<pre><code>animation: animation-defined[, animation-defined]*;</code></pre></p>
   <p>单个动画不支持元素在同一时间内，不同属性使用不同 animation-timing-function. Multiple-Animation 可实现 (<mark>transform 不能组合使用，性能不佳</mark>)</p>
@@ -495,6 +531,7 @@
       */
       background-color: lightblue;
       offset-path: ray(0deg farthest-corner contain at bottom 0 right 25%);
+      /* offset-path: ray(90deg farthest-side at top left); */
     }
     .offset-item-rect {
       background-color: #9d93ec;
@@ -562,11 +599,13 @@
     <div class="offset-item offset-item-xywh"></div>
   </div>
 
-  <h2>相关文档</h2>
+  <h2>相关文档/链接</h2>
   <ul>
     <li><a href="https://www.w3.org/TR/css3-animations/" target="_blank">https://www.w3.org/TR/css3-animations/</a></li>
-    <li><a href="https://www.w3.org/TR/motion-1/" target="_blank">https://www.w3.org/TR/motion-1/</a></li>
-    <li><a href="https://drafts.fxtf.org/motion-1/#offset-path-contain" target="_blank">https://drafts.fxtf.org/motion-1/#offset-path-contain</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">&lt;dashed-ident&gt;</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations">CSS scroll-driven animations</a></li>
+    <li><a href="https://scroll-driven-animations.style/">scroll-driven-animations</a></li>
+    <li><a href="https://slidr.io/bramus/scroll-driven-animations-and-view-transitions-2023-06-09-css-day#1">scroll-driven-animations-and-view-transitions</a></li>
   </ul>
   <script>
     var demo = document.getElementById( 'demo' );
