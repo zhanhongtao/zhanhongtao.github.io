@@ -601,9 +601,7 @@
   </section>
 
   <div class="scroller-wrap">
-    <div class="view-scope">
-      <output>%</output>
-    </div>
+    <div class="view-scope"></div>
   </div>
   <style>
     /*
@@ -624,16 +622,18 @@
       width: calc(1% * var(--percentage));
       position: relative;
     }
-    .view-scope output {
+    .view-scope::after {
       position: absolute;
       right: -4px;
       top: 0;
       translate: 100% -50%;
       font-size: 0.98em;
-    }
-    .view-scope output::before {
-      content: counter(percentage);
+      /*
+        counter-reset 相当于 initial
+      */
       counter-reset: percentage var(--percentage);
+      counter-set: percentage var(--percentage);
+      content: counter(percentage) "%";
     }
     @keyframes display-percentage {
       to {  --percentage: 100 }
