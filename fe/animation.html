@@ -601,12 +601,14 @@
   </section>
 
   <div class="scroller-wrap">
-    <div class="view-scope"></div>
+    <div class="view-scope">
+      <output>%</output>
+    </div>
   </div>
   <style>
     @property --percentage {
-      syntax: "<number>";
-      inherits: false;
+      syntax: "<integer>";
+      inherits: true;
       initial-value: 0;
     }
     .animation-timeline { view-timeline: --view; --percentage: 0 }
@@ -617,9 +619,18 @@
       animation-timeline: --view;
       background-color: #559b24;
       width: calc(1% * var(--percentage));
+      position: relative;
     }
-    .view-scope::after {
-      /* content: counter(percentage); */
+    .view-scope output {
+      position: absolute;
+      right: -4px;
+      top: 0;
+      translate: 100% -50%;
+      font-size: 0.98em;
+    }
+    .view-scope output::before {
+      content: counter(percentage);
+      counter-reset: percentage var(--percentage);
     }
     @keyframes display-percentage {
       to {  --percentage: 100 }
