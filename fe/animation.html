@@ -412,9 +412,23 @@
       </dd>
     </dl>
 
+    <h3>View Timeline <small><a href="https://caniuse.com/mdn-css_properties_view-timeline">caniuse</a></small></h3>
+    <p>属性的语义基本和 scroll-timeline 类似，定义名称和方向</p>
+    <dl>
+      <dt>view-timeline-name</dt>
+      <dt>view-timeline-axis</dt>
+      <dt>上面两个属性的简写形式</dt>
+      <dd><code>view-timeline: view-timeline-name view-timeline-axis</code></dd>
+      <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline-inset" target="_blank">view-timeline-inset</a></dt>
+      <dd>和 animation-range 作用类似，用于定义位置来计算 timeline; 和 scroll-padding 一样扩展 viewport 区间，定义 port 点</dd>
+      <dt>view()</dt>
+      <dd>可以理解成 view-timeline-axis 和 view-timeline-inset 的简写形式</dd>
+    </dl>
+
     <h3>scope</h3>
     <dl>
       <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope" target="_blank">timeline-scope</a></dt>
+      <dd>可以理解为，给元素定义好 view-timeline/scroll-timeline, 便于任意其他元素使用</dd>
       <dd>*-timeline-name 存在 scope 概念，只能作用于后代元素上</dd>
       <dd>可以在 *-timeline-name 元素的祖先元素上定义 timeline-scope: --custom-timeline-name 属性，意思是把 scope 向上提高，然后作用于更多后代元素上</dd>
       <dd>
@@ -585,6 +599,32 @@
       })
     </script>
   </section>
+
+  <div class="scroller-wrap">
+    <div class="view-scope"></div>
+  </div>
+  <style>
+    @property --percentage {
+      syntax: "<number>";
+      inherits: false;
+      initial-value: 0;
+    }
+    .animation-timeline { view-timeline: --view; --percentage: 0 }
+    body { timeline-scope: --view }
+    .view-scope {
+      height: 2px;
+      animation: display-percentage linear;
+      animation-timeline: --view;
+      background-color: #559b24;
+      width: calc(1% * var(--percentage));
+    }
+    .view-scope::after {
+      /* content: counter(percentage); */
+    }
+    @keyframes display-percentage {
+      to {  --percentage: 100 }
+    }
+  </style>
 
   <h3>Multiple Animation</h3>
   <p>语法：<pre><code>animation: animation-defined[, animation-defined]*;</code></pre></p>
