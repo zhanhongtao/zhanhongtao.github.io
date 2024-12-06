@@ -1,213 +1,275 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <title>Animation</title>
   <style>
-  /*
+    /*
     generate by https://scrollbar.app/
   */
-  body {
-    --sb-track-color: #e0f4fd;
-    --sb-thumb-color: #515559;
-    --sb-size: 6px;
-  }
-
-  .scroller::-webkit-scrollbar {
-    width: var(--sb-size);
-  }
-
-  .scroller::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
-    border-radius: 4px;
-  }
-
-  .scroller::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: 4px;
-  }
-
-  @supports not selector(::-webkit-scrollbar) {
     body {
-        scrollbar-color: var(--sb-thumb-color)
-                      var(--sb-track-color);
+      --sb-track-color: #e0f4fd;
+      --sb-thumb-color: #515559;
+      --sb-size: 6px;
     }
-  }
-  /*
+
+    .scroller::-webkit-scrollbar {
+      width: var(--sb-size);
+    }
+
+    .scroller::-webkit-scrollbar-track {
+      background: var(--sb-track-color);
+      border-radius: 4px;
+    }
+
+    .scroller::-webkit-scrollbar-thumb {
+      background: var(--sb-thumb-color);
+      border-radius: 4px;
+    }
+
+    @supports not selector(::-webkit-scrollbar) {
+      body {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+      }
+    }
+
+    /*
     * from[0%]/to[100%]
       from[0%] 可省略，使用元素当前状态
       to[100%] 也可省略，使用元素动画前状态
     * 不是所有属性都支持动画
   */
-  @-ms-keyframes slide {
-    0% { -ms-transform: translate(0, 0) }
-    100% { -ms-transform: translate(200px, 0) }
-  }
-  @-moz-keyframes slide {
-    0% { -moz-transform: translate(0, 0) }
-    100% { -moz-transform: translate(200px, 0) }
-  }
-  @-webkit-keyframes slide {
-    0% { -webkit-transform: translate(0, 0) }
-    100% { -webkit-transform: translate(200px, 0) }
-  }
-  @keyframes slide {
-    0% { transform: translate(0, 0) }
-    100% { transform: translate(200px, 0) }
-  }
-  html { font-size: 10px; }
-  body { font-size: 1.4rem; }
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.8rem; }
-  #demo {
-    margin: 10px 0;
-    width: 25px;
-    height: 25px;
-    background-color: #faa;
-  }
-  .enable {
-    -ms-animation: slide .5s linear 3 alternate forwards;
-    -moz-animation: slide .5s linear 0s 3 alternate forwards;
-    -webkit-animation: slide .5s linear 3 alternate forwards;
-    animation: slide .5s linear 3 alternate forwards;
-  }
+    @-ms-keyframes slide {
+      0% {
+        -ms-transform: translate(0, 0)
+      }
 
-  .logo-sogou-wrap {
-    padding: 16px 8px;
-    background-color: #9d93ec;
-    max-width: 577px;
-  }
-  .logo-sogou {
-    width: 100%;
-    aspect-ratio: 577 / 64;;
-    background: url(./images/logo-sogou-min.png) no-repeat center 0;
-    background-size: 100% 2400%;
-    -webkit-animation: logo 4s steps(23, end) .5s infinite;
-    animation: logo 4s steps(23, end) .5s infinite;
-  }
-  @-webkit-keyframes logo {
-    to {
-      background-position: center bottom;
+      100% {
+        -ms-transform: translate(200px, 0)
+      }
     }
-  }
-  @keyframes logo {
-    to {
-      background-position: center bottom;
-    }
-  }
 
-  .step-demo {
-    display: inline-block;
-    vertical-align: middle;
-    width: 48px;
-    height: 48px;
-    background: url(./images/step-demo.png) no-repeat 0 0;
-    animation: step-demo 1.5s steps(3, end) infinite both; /* 可以修改开发者工具查看效果 */
-    animation: step-demo 1.5s steps(3, jump-none) infinite both;
-  }
-  @-webkit-keyframes step-demo {
-    to {
-      background-position: -144px 0;
-      background-position: 100% 0;
+    @-moz-keyframes slide {
+      0% {
+        -moz-transform: translate(0, 0)
+      }
+
+      100% {
+        -moz-transform: translate(200px, 0)
+      }
     }
-  }
-  @keyframes step-demo {
-    to {
-      /*
+
+    @-webkit-keyframes slide {
+      0% {
+        -webkit-transform: translate(0, 0)
+      }
+
+      100% {
+        -webkit-transform: translate(200px, 0)
+      }
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translate(0, 0)
+      }
+
+      100% {
+        transform: translate(200px, 0)
+      }
+    }
+
+    html {
+      font-size: 10px;
+    }
+
+    body {
+      font-size: 1.4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    #demo {
+      margin: 10px 0;
+      width: 25px;
+      height: 25px;
+      background-color: #faa;
+    }
+
+    .enable {
+      -ms-animation: slide .5s linear 3 alternate forwards;
+      -moz-animation: slide .5s linear 0s 3 alternate forwards;
+      -webkit-animation: slide .5s linear 3 alternate forwards;
+      animation: slide .5s linear 3 alternate forwards;
+    }
+
+    .logo-sogou-wrap {
+      padding: 16px 8px;
+      background-color: #9d93ec;
+      max-width: 577px;
+    }
+
+    .logo-sogou {
+      width: 100%;
+      aspect-ratio: 577 / 64;
+      ;
+      background: url(./images/logo-sogou-min.png) no-repeat center 0;
+      background-size: 100% 2400%;
+      -webkit-animation: logo 4s steps(23, end) .5s infinite;
+      animation: logo 4s steps(23, end) .5s infinite;
+    }
+
+    @-webkit-keyframes logo {
+      to {
+        background-position: center bottom;
+      }
+    }
+
+    @keyframes logo {
+      to {
+        background-position: center bottom;
+      }
+    }
+
+    .step-demo {
+      display: inline-block;
+      vertical-align: middle;
+      width: 48px;
+      height: 48px;
+      background: url(./images/step-demo.png) no-repeat 0 0;
+      animation: step-demo 1.5s steps(3, end) infinite both;
+      /* 可以修改开发者工具查看效果 */
+      animation: step-demo 1.5s steps(3, jump-none) infinite both;
+    }
+
+    @-webkit-keyframes step-demo {
+      to {
+        background-position: -144px 0;
+        background-position: 100% 0;
+      }
+    }
+
+    @keyframes step-demo {
+      to {
+        /*
         0 0; -> 1;
         -48px 0; -> 2;
         -96px 0; -> 3
         -144px 0;
        */
-      background-position: -144px 0;  /* step(3, end);  定义 4 个位置，但使用 3 帧，跳过最后一帧 [-144px 0] */
-      background-position: 100% 0;
+        background-position: -144px 0;
+        /* step(3, end);  定义 4 个位置，但使用 3 帧，跳过最后一帧 [-144px 0] */
+        background-position: 100% 0;
+      }
     }
-  }
 
-  /* 可指定图片大小 background-size */
-  .step-twitter-love {
-    width: 48px;
-    height: 48px;
-    display: inline-block;
-    vertical-align: middle;
-    background: url(./images/web_heart_animation.png) no-repeat 0 0;
-    background-size: 2900%;
-    -webkit-animation: heart_love 1s steps(28, end) .5s infinite;
-    animation: heart_love 1s steps(28, end) .5s infinite;
-  }
-  @-webkit-keyframes heart_love {
-    to {
-      background-position: right 0;
+    /* 可指定图片大小 background-size */
+    .step-twitter-love {
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      vertical-align: middle;
+      background: url(./images/web_heart_animation.png) no-repeat 0 0;
+      background-size: 2900%;
+      -webkit-animation: heart_love 1s steps(28, end) .5s infinite;
+      animation: heart_love 1s steps(28, end) .5s infinite;
     }
-  }
-  @keyframes heart_love {
-    to {
-      background-position: right 0;
+
+    @-webkit-keyframes heart_love {
+      to {
+        background-position: right 0;
+      }
     }
-  }
-  .paused .step-twitter-love,
-  .paused .timing-function,
-  .paused .step-demo,
-  .paused .logo-sogou,
-  .paused .offset-item,
-  .paused .composition-demo {
-    -webkit-animation-play-state: paused;
-    animation-play-state: paused;
-  }
-  .timing-function {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    background-color: hsl(210, 80%, 50%);
-    -webkit-animation: try-timing-function 2s infinite alternate;
-    animation: try-timing-function 2s infinite alternate;
-  }
-  @-webkit-keyframes try-timing-function {
-    0% {
-      -webkit-transform: translate(0);
-      -webkit-animation-timing-function: linear;
+
+    @keyframes heart_love {
+      to {
+        background-position: right 0;
+      }
     }
-    25% {
-      -webkit-transform: translate(100px);
-      -webkit-animation-timing-function: ease;
+
+    .paused .step-twitter-love,
+    .paused .timing-function,
+    .paused .step-demo,
+    .paused .logo-sogou,
+    .paused .offset-item,
+    .paused .composition-demo {
+      -webkit-animation-play-state: paused;
+      animation-play-state: paused;
     }
-    50% {
-      -webkit-transform: translate(200px);
-      -webkit-animation-timing-function: ease-in;
+
+    .timing-function {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      vertical-align: middle;
+      background-color: hsl(210, 80%, 50%);
+      -webkit-animation: try-timing-function 2s infinite alternate;
+      animation: try-timing-function 2s infinite alternate;
     }
-    75% {
-      -webkit-transform: translate(300px);
-      -webkit-animation-timing-function: ease-out;
+
+    @-webkit-keyframes try-timing-function {
+      0% {
+        -webkit-transform: translate(0);
+        -webkit-animation-timing-function: linear;
+      }
+
+      25% {
+        -webkit-transform: translate(100px);
+        -webkit-animation-timing-function: ease;
+      }
+
+      50% {
+        -webkit-transform: translate(200px);
+        -webkit-animation-timing-function: ease-in;
+      }
+
+      75% {
+        -webkit-transform: translate(300px);
+        -webkit-animation-timing-function: ease-out;
+      }
+
+      100% {
+        -webkit-transform: translate(400px);
+      }
     }
-    100% {
-      -webkit-transform: translate(400px);
+
+    @keyframes try-timing-function {
+      0% {
+        transform: translate(0);
+        animation-timing-function: linear;
+      }
+
+      25% {
+        transform: translate(100px);
+        animation-timing-function: ease;
+      }
+
+      50% {
+        transform: translate(200px);
+        animation-timing-function: ease-in;
+      }
+
+      75% {
+        transform: translate(300px);
+        animation-timing-function: ease-out;
+      }
+
+      100% {
+        transform: translate(400px);
+      }
     }
-  }
-  @keyframes try-timing-function {
-    0% {
-      transform: translate(0);
-      animation-timing-function: linear;
-    }
-    25% {
-      transform: translate(100px);
-      animation-timing-function: ease;
-    }
-    50% {
-      transform: translate(200px);
-      animation-timing-function: ease-in;
-    }
-    75% {
-      transform: translate(300px);
-      animation-timing-function: ease-out;
-    }
-    100% {
-      transform: translate(400px);
-    }
-  }
   </style>
 </head>
+
 <body>
   <h1>Animation</h1>
   <button id="add">Add</button>
@@ -220,7 +282,8 @@
     </div>
   </div>
 
-  <h2>CSS<div class="step-twitter-love"></div></h2>
+  <h2>CSS<div class="step-twitter-love"></div>
+  </h2>
   <dl>
     <dt>animation-name</dt>
     <dd>@keyframes 指定的关键帧名称。none 表示无动画。(不建议使用关键字做 name)</dd>
@@ -231,10 +294,16 @@
   </dl>
   <dl>
     <dt>animation-timing-function</dt>
-    <dd>设置动画速度函数 - 动画在关键帧之间是如何变化。[ease]/linear/ease-in/ease-out/ease-in-out/<a href="http://cubic-bezier.com" target="_blank">cubic-bezier</a>(x1, y1, x2, y2)</dd>
-    <dd><div class="step-demo"></div>step-start/step-end/steps(n, pos[jump-start|jump-end|jump-both|jump-none])/start[=steps(n, jump-start)]/end[=steps(n, jump-end)] -> jump-start: 跳过第一帧; jump-end: 跳过最后一帧; jump-body: 同时跳过第一和最后一帧; jump-none: 不跳过任何一帧</dd>
+    <dd>设置动画速度函数 - 动画在关键帧之间是如何变化。[ease]/linear/ease-in/ease-out/ease-in-out/<a href="http://cubic-bezier.com"
+        target="_blank">cubic-bezier</a>(x1, y1, x2, y2)</dd>
+    <dd>
+      <div class="step-demo"></div>step-start/step-end/steps(n,
+      pos[jump-start|jump-end|jump-both|jump-none])/start[=steps(n, jump-start)]/end[=steps(n, jump-end)] -> jump-start:
+      跳过第一帧; jump-end: 跳过最后一帧; jump-body: 同时跳过第一和最后一帧; jump-none: 不跳过任何一帧
+    </dd>
     <dd>可在 @keyframes 中不同时间段定义不同的 animation-timing-function - 自定义 (<mark>手写</mark>)</dd>
-    <dd>DEMO: <div class="timing-function"></div></dd>
+    <dd>DEMO: <div class="timing-function"></div>
+    </dd>
   </dl>
   <dl>
     <dt>animation-delay</dt>
@@ -254,7 +323,8 @@
     <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode">animation-fill-mode</a></dt>
     <dd>描述动画开始前/结束后，@keyframes 中定义的样式对元素本身样式的影响</dd>
     <dd>none 默认情况下，动画开始前 [animation-delay 这段时间] 和动画结束后，保留元素最初样式</dd>
-    <dd>backwards 动画开始前，应用动画定义中的开始样式，动画结束后，回退到元素初始样式。受 animation-direction/animation-iteration-count 影响。单次情况下：direction 为 normal/alternate 时，应用 from 样式; 为 reverse/alternate-reverse 时，应用 to 样式;</dd>
+    <dd>backwards 动画开始前，应用动画定义中的开始样式，动画结束后，回退到元素初始样式。受 animation-direction/animation-iteration-count 影响。单次情况下：direction
+      为 normal/alternate 时，应用 from 样式; 为 reverse/alternate-reverse 时，应用 to 样式;</dd>
     <dd>forwards 动画开始前，保持元素最初样式，动画结束后，应用动画定义中的结束样式。当 animation-iteration-count 为 0 时，forwards 和 backwards 相同;</dd>
     <dd>both 同时使用 backwards 和 forwards 规则; 即：动画开始前应用动画定义中的开始样式，动画结束后应用动画定义中的结束样式</dd>
     <dd>ps: 添加 <code>animation-delay: 1s;</code> 看动画效果</dd>
@@ -264,38 +334,43 @@
     <dd>停止和恢复动画。[running | paused]</dd>
     <dd>
       <style>
-      #animation-play-state-demo {
-        width: 50px;
-        height: 72px;
-        background: url(./images/sprite-steps.png) no-repeat 0 0;
-        -webkit-animation: steps 1s steps(10, end) infinite;
-        animation: steps 1s steps(10, end) infinite;
-      }
-      .paused #animation-play-state-demo {
-        -webkit-animation-play-state: paused;
-        animation-play-state: paused;
-      }
-      @-webkit-keyframes steps {
-        100% {
-          background-position: -500px 0;
+        #animation-play-state-demo {
+          width: 50px;
+          height: 72px;
+          background: url(./images/sprite-steps.png) no-repeat 0 0;
+          -webkit-animation: steps 1s steps(10, end) infinite;
+          animation: steps 1s steps(10, end) infinite;
         }
-      }
-      @keyframes steps {
-        100% {
-          background-position: -500px 0;
+
+        .paused #animation-play-state-demo {
+          -webkit-animation-play-state: paused;
+          animation-play-state: paused;
         }
-      }
+
+        @-webkit-keyframes steps {
+          100% {
+            background-position: -500px 0;
+          }
+        }
+
+        @keyframes steps {
+          100% {
+            background-position: -500px 0;
+          }
+        }
       </style>
       <div id="animation-play-state-demo"></div>
       <script>
-        document.getElementById('animation-play-state-demo').addEventListener('click', function(e) {
+        document.getElementById('animation-play-state-demo').addEventListener('click', function (e) {
           document.body.classList.toggle('paused');
         }, false);
       </script>
     </dd>
   </dl>
   <h3>简写形式</h3>
-  <p><pre><code>animation: name duration function delay count direction fill-mode play-state;</code></pre></p>
+  <p>
+  <pre><code>animation: name duration function delay count direction fill-mode play-state;</code></pre>
+  </p>
 
   <h3>动画合成</h3>
   <dl>
@@ -305,7 +380,11 @@
     <dd>add 效果累积</dd>
     <dd>
       <style>
-        .composition { display: flex; gap: 8px; }
+        .composition {
+          display: flex;
+          gap: 8px;
+        }
+
         .composition-demo {
           width: 80px;
           aspect-ratio: 1;
@@ -313,15 +392,22 @@
           transform: scale(0.5);
           animation: composition 1s infinite;
         }
+
         .composition-replace {
-          animation-composition: replace; /* 默认值，直接替换 最初 size = Raw * 0.5，结果为 Raw * 2 */
+          animation-composition: replace;
+          /* 默认值，直接替换 最初 size = Raw * 0.5，结果为 Raw * 2 */
         }
+
         .composition-accumulate {
-          animation-composition: accumulate; /* 值累积，最初 size = Raw * 0.5, 结果为 size + size * 2 = 3 * size = Raw * 1.5  */
+          animation-composition: accumulate;
+          /* 值累积，最初 size = Raw * 0.5, 结果为 size + size * 2 = 3 * size = Raw * 1.5  */
         }
+
         .composition-add {
-          animation-composition: add; /* 效果累积，最初 size = Raw * 0.5, 结果为 size * 2 = Raw * 1 */
+          animation-composition: add;
+          /* 效果累积，最初 size = Raw * 0.5, 结果为 size * 2 = Raw * 1 */
         }
+
         @keyframes composition {
           100% {
             transform: scale(2);
@@ -337,13 +423,18 @@
   </dl>
 
   <section class="animation-timeline">
-    <h3>Animation Timeline <small><a href="https://caniuse.com/mdn-css_properties_animation-timeline">caniuse</a></small></h3>
+    <h3>Animation Timeline <small><a
+          href="https://caniuse.com/mdn-css_properties_animation-timeline">caniuse</a></small></h3>
     <dl>
-      <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline">animation-timeline</a></dt>
+      <dt><a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline">animation-timeline</a></dt>
       <dd>none</dd>
-      <dd>auto[default] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentTimeline">DocumentTimeline</a></dd>
-      <dd>--scroll-timeline-name, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll">scroll()</a></dd>
-      <dd>--view-timeline-name, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view">view()</a></dd>
+      <dd>auto[default] - <a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentTimeline">DocumentTimeline</a></dd>
+      <dd>--scroll-timeline-name, <a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll">scroll()</a></dd>
+      <dd>--view-timeline-name, <a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view">view()</a></dd>
 
       <dt>animation-range-start</dt>
       <dd>动画开始位置</dd>
@@ -353,8 +444,10 @@
       <dd>cover: subject 与 viewport 相交</dd>
       <dd>contain: subject 在视觉上完全包含/被包含 viewport</dd>
       <dd>常见情况是，subject 的尺寸小于 viewport 尺寸：entry/entry-crossing 的 100% 表示 subject 完全进入 viewport</dd>
-      <dd>当 subject 的尺寸大于 viewport 尺寸时：entry 100% 表示 subject 刚好覆盖 viewport; entry-crossing 100% 表示 subject 完整穿过 entry 线</dd>
-      <dd>可以在<a href="https://scroll-driven-animations.style/tools/view-timeline/ranges/" target="_blank">view-timeline-tool</a>查看效果</dd>
+      <dd>当 subject 的尺寸大于 viewport 尺寸时：entry 100% 表示 subject 刚好覆盖 viewport; entry-crossing 100% 表示 subject 完整穿过 entry 线
+      </dd>
+      <dd>可以在<a href="https://scroll-driven-animations.style/tools/view-timeline/ranges/"
+          target="_blank">view-timeline-tool</a>查看效果</dd>
 
       <dt>animation-range-end</dt>
       <dd>动画结束位置，和 animation-range-start 对应</dd>
@@ -367,15 +460,21 @@
 
     <h3>Scroll Timeline <small><a href="https://caniuse.com/mdn-css_properties_scroll-timeline">caniuse</a></small></h3>
     <dl>
-      <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-name">scroll-timeline-name</a></dt>
-      <dd>使用 css 中<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">自定义变量的命名方式</a>命名，用来标识当前具有滚动条的元素滚动进度作为 timeline 提供给 animation 使用</dd>
+      <dt><a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-name">scroll-timeline-name</a></dt>
+      <dd>使用 css 中<a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">自定义变量的命名方式</a>命名，用来标识当前具有滚动条的元素滚动进度作为
+        timeline 提供给 animation 使用</dd>
 
-      <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-axis">scroll-timeline-axis</a></dt>
+      <dt><a target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline-axis">scroll-timeline-axis</a></dt>
       <dd>元素可能在水平/垂直两个方向上都存在滚动条，因此需要指定使用哪个，默认使用逻辑属性 block</dd>
       <dd>block[default]/inline/x/y</dd>
 
       <dt>上面两个属性的简写形式</dt>
-      <dd><code><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline">scroll-timeline</a>: scroll-timeline-name scroll-timeline-axis;</code></dd>
+      <dd>
+        <code><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline">scroll-timeline</a>: scroll-timeline-name scroll-timeline-axis;</code>
+      </dd>
       <dd>因为 scroll-timeline-axis 有默认值，可以忽略不写，只定义 timeline-name 即可</dd>
       <dd>
         <div class="scroller-wrap">
@@ -391,7 +490,7 @@
       <dd>scroll(root) 用文档的根元素做 scroller</dd>
       <dd>scroll(self) 元素自身做 scroller; ps: 尽管设置 overflow: hidden, 但如果内容使 scroller 存在 [隐藏滚动条] 时，同样可以让 animation 生效</dd>
       <dd>scroll(block[default]/inline/x/y)</dd>
-      <dd>scroll(nearest, inline), scroll(x nearest)  关键字是固定的几个，位置舒徐可以任意写，都可以识别</dd>
+      <dd>scroll(nearest, inline), scroll(x nearest) 关键字是固定的几个，位置舒徐可以任意写，都可以识别</dd>
       <dd>
         <div class="scroller-wrap">
           <div class="scroller use-scroll-fn">
@@ -402,7 +501,11 @@
       <dd>
         <div class="scroller-wrap" style="position: relative">
           <div class="scroller scroll-ani-element-self">
-            The scroll() CSS function can be used with animation-timeline to indicate a scrollable element (scroller) and scrollbar axis that will provide an anonymous scroll progress timeline for animating the current element. The scroll progress timeline is progressed through by scrolling the scroller between top and bottom (or left and right). The position in the scroll range is converted into a percentage of progress — 0% at the start and 100% at the end.
+            The scroll() CSS function can be used with animation-timeline to indicate a scrollable element (scroller)
+            and scrollbar axis that will provide an anonymous scroll progress timeline for animating the current
+            element. The scroll progress timeline is progressed through by scrolling the scroller between top and bottom
+            (or left and right). The position in the scroll range is converted into a percentage of progress — 0% at the
+            start and 100% at the end.
           </div>
           <div class="scroll-ani-element-help">
             <span class="scroll-ani-element-help-default">查看更多</span>
@@ -419,7 +522,8 @@
       <dt>view-timeline-axis</dt>
       <dt>上面两个属性的简写形式</dt>
       <dd><code>view-timeline: view-timeline-name view-timeline-axis</code></dd>
-      <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline-inset" target="_blank">view-timeline-inset</a></dt>
+      <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline-inset"
+          target="_blank">view-timeline-inset</a></dt>
       <dd>和 animation-range 作用类似，用于定义位置来计算 timeline; 和 scroll-padding 一样扩展 viewport 区间，定义 port 点</dd>
       <dt>view()</dt>
       <dd>可以理解成 view-timeline-axis 和 view-timeline-inset 的简写形式</dd>
@@ -427,12 +531,14 @@
 
     <h3>scope</h3>
     <dl>
-      <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope" target="_blank">timeline-scope</a></dt>
+      <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope" target="_blank">timeline-scope</a>
+      </dt>
       <dd>可以理解为，给元素定义好 view-timeline/scroll-timeline, 便于任意其他元素使用</dd>
       <dd>*-timeline-name 存在 scope 概念，只能作用于后代元素上</dd>
       <dd>可以在 *-timeline-name 元素的祖先元素上定义 timeline-scope: --custom-timeline-name 属性，意思是把 scope 向上提高，然后作用于更多后代元素上</dd>
       <dd>
-        <div class="scroll-ani-element" style="position: fixed; top: 0; left: 0; animation-timeline: --scroll-scope"></div>
+        <div class="scroll-ani-element" style="position: fixed; top: 0; left: 0; animation-timeline: --scroll-scope">
+        </div>
         <div class="scroller-wrap">
           <div class="scroller use-timeline-scope" style="scroll-timeline-name: --scroll-scope"></div>
         </div>
@@ -444,6 +550,7 @@
         max-width: 600px;
         margin: 8px 0;
       }
+
       .scroller {
         margin: 2px 0;
         height: 100px;
@@ -452,11 +559,13 @@
         overscroll-behavior: contain;
         position: relative;
       }
+
       .scroller::after {
         content: '';
         display: block;
         height: 1000px;
       }
+
       /*
         使用 svg[text] 做背景说明，background-attachment: scroll 来固定位置
         需要一个工具把 svg 转化为 data:url 格式
@@ -473,15 +582,19 @@
         background-position: center;
         background-attachment: scroll;
       }
+
       .use-scroll-timeline-name {
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50'  alignment-baseline='middle' text-anchor='middle'%3E scroll-timeline-name: --scroll;%3C/text%3E%3C/svg%3E");
       }
+
       .use-scroll-fn {
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50'  alignment-baseline='middle' text-anchor='middle'%3E animation-timeline: scroll();%3C/text%3E%3C/svg%3E");
       }
+
       .use-timeline-scope {
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50' alignment-baseline='middle' text-anchor='middle'%3E%3Ctspan dx='0' dy='0em'%3E .parent %7B timeline-scope: --scroll %7D %3C/tspan%3E%3Ctspan x='150' dy='1.2em'%3E%0A.element %7B animation-timeline: --scroll %7D%3C/tspan%3E%3C/text%3E%3C/svg%3E");
       }
+
       .scroll-ani-element-inner {
         /*
         有点黑科技味道
@@ -497,15 +610,18 @@
         position: sticky;
         top: 0;
       }
+
       .scroll-ani-element {
         height: 4px;
         border-radius: 2px;
         background-color: #9d93ec;
         animation: scroll 2s linear both;
       }
+
       .animation-timeline {
         timeline-scope: --scroll-scope;
       }
+
       .scroll-ani-element-help {
         position: relative;
         width: 100%;
@@ -517,9 +633,11 @@
         text-align: center;
         cursor: pointer;
       }
+
       .scroll-ani-element-help-default {
         display: block;
       }
+
       .scroll-ani-element-help-toggle {
         display: none;
       }
@@ -552,13 +670,22 @@
           2024/12/05: 把 interpolate-size 放到 :root 上会导致部分 scroll-timeline 失效
           https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
           https://caniuse.com/mdn-css_properties_interpolate-size
+
+          类似关键字
+          @starting-style
+          transition-behavior: allow-discrete;
+          https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+          https://developer.chrome.com/blog/entry-exit-animations
+          https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior
         */
         transition: height 1.5s ease;
         interpolate-size: allow-keywords;
       }
+
       :root {
         /* interpolate-size: allow-keywords; */
       }
+
       .scroll-ani-element-self-trigger {
         height: fit-content;
         /*
@@ -569,23 +696,31 @@
         */
         height: calc-size(fit-content, size);
       }
+
       .scroll-ani-element-self::after {
         display: none;
       }
-      .scroll-ani-element-self-trigger + .scroll-ani-element-help {
+
+      .scroll-ani-element-self-trigger+.scroll-ani-element-help {
         translate: 0;
       }
-      .scroll-ani-element-self-trigger + .scroll-ani-element-help .scroll-ani-element-help-default {
+
+      .scroll-ani-element-self-trigger+.scroll-ani-element-help .scroll-ani-element-help-default {
         display: none;
       }
-      .scroll-ani-element-self-trigger + .scroll-ani-element-help .scroll-ani-element-help-toggle {
+
+      .scroll-ani-element-self-trigger+.scroll-ani-element-help .scroll-ani-element-help-toggle {
         display: block;
       }
+
       @keyframes scroll-self {
-        from, to {
+
+        from,
+        to {
           z-index: 1;
         }
       }
+
       @keyframes scroll {
         to {
           width: 100%;
@@ -604,16 +739,15 @@
     <div class="view-scope"></div>
   </div>
   <style>
-    /*
-      https://caniuse.com/mdn-css_at-rules_property
-    */
-    @property --percentage {
-      syntax: "<integer>";
-      inherits: true;
-      initial-value: 0;
+    .animation-timeline {
+      view-timeline: --view;
+      --percentage: 0
     }
-    .animation-timeline { view-timeline: --view; --percentage: 0 }
-    body { timeline-scope: --view }
+
+    body {
+      timeline-scope: --view
+    }
+
     .view-scope {
       height: 2px;
       animation: display-percentage linear;
@@ -622,6 +756,7 @@
       width: calc(1% * var(--percentage));
       position: relative;
     }
+
     .view-scope::after {
       position: absolute;
       right: -4px;
@@ -635,54 +770,87 @@
       counter-set: percentage var(--percentage);
       content: counter(percentage) "%";
     }
+
     @keyframes display-percentage {
-      to {  --percentage: 100 }
+      to {
+        --percentage: 100
+      }
     }
   </style>
 
   <h3>Multiple Animation</h3>
-  <p>语法：<pre><code>animation: animation-defined[, animation-defined]*;</code></pre></p>
+  <p>语法：
+  <pre><code>animation: animation-defined[, animation-defined]*;</code></pre>
+  </p>
   <p>单个动画不支持元素在同一时间内，不同属性使用不同 animation-timing-function. Multiple-Animation 可实现 (<mark>transform 不能组合使用，性能不佳</mark>)</p>
   <p>为了使用 transform 来实现曲线过程动画，可利用容器嵌套方法。见第三个例子。</p>
   <div>
     <style>
       @-webkit-keyframes v {
-        to { top: 160px; }
+        to {
+          top: 160px;
+        }
       }
+
       @-webkit-keyframes h {
-        to { left: 160px; }
+        to {
+          left: 160px;
+        }
       }
+
       @-webkit-keyframes vh {
         to {
           -webkit-transform: translate(160px, 160px);
           transform: translate(160px, 160px);
         }
       }
+
       @-webkit-keyframes vt {
-        to { -webkit-transform: translate3D(0, 160px, 0); }
+        to {
+          -webkit-transform: translate3D(0, 160px, 0);
+        }
       }
+
       @-webkit-keyframes ht {
-        to { -webkit-transform: translate3D(160px, 0, 0); }
+        to {
+          -webkit-transform: translate3D(160px, 0, 0);
+        }
       }
+
       @keyframes v {
-        to { top: 160px; }
+        to {
+          top: 160px;
+        }
       }
+
       @keyframes h {
-        to { left: 160px; }
+        to {
+          left: 160px;
+        }
       }
+
       @keyframes vt {
-        to { transform: translate3D(0, 160px, 0); }
+        to {
+          transform: translate3D(0, 160px, 0);
+        }
       }
+
       @keyframes ht {
-        to { transform: translate3D(160px, 0, 0); }
+        to {
+          transform: translate3D(160px, 0, 0);
+        }
       }
+
       @keyframes vh {
         to {
           -webkit-transform: translate(160px, 160px);
           transform: translate(160px, 160px);
         }
       }
-      .mul-d0, .mul-d1, .mul-other {
+
+      .mul-d0,
+      .mul-d1,
+      .mul-other {
         width: 20px;
         height: 20px;
         display: inline-block;
@@ -693,19 +861,23 @@
         border-radius: 50%;
         will-change: left, top, transform;
       }
+
       .mul-d0 {
         -webkit-animation: vh 1.5s linear infinite both alternate;
         animation: vh 1.5s linear infinite both alternate;
       }
+
       .mul-d1 {
         -webkit-animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
         animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
       }
+
       .mul-other {
         background-color: transparent;
         -webkit-animation: ht 1.5s linear infinite both alternate;
         animation: ht 1.5s linear infinite both alternate;
       }
+
       .mul-other:after {
         content: '';
         display: block;
@@ -716,6 +888,7 @@
         -webkit-animation: vt 1.5s ease infinite both alternate;
         animation: vt 1.5s ease infinite both alternate;
       }
+
       .paused .mul-d0,
       .paused .mul-d1,
       .paused .mul-other,
@@ -739,7 +912,8 @@
   <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程，即：相互不阻塞。</a></p>
   <p>查看开发者工具中 animation 相关事件。</p>
 
-  <h3><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset#formal_syntax">offset</a> - 代替原 motion 语法</h3>
+  <h3><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset#formal_syntax">offset</a> - 代替原
+    motion 语法</h3>
   <dl>
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-anchor">offset-anchor</a></dt>
     <dd>定义相对位置关系</dd>
@@ -749,14 +923,18 @@
     <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path">offset-path</a></dt>
     <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/ray">ray</a></dd>
     <dd>url</dd>
-    <dd>circle/ellipse/inset/polygon/path/xywh/rect/shape - <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape">basic shape</a></dd>
-    <dd>content-box/padding-box/border-box/fill-box/stroke-box/view-box -  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-edge#values">box-edge</a></dd>
+    <dd>circle/ellipse/inset/polygon/path/xywh/rect/shape - <a
+        href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape">basic shape</a></dd>
+    <dd>content-box/padding-box/border-box/fill-box/stroke-box/view-box - <a
+        href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-edge#values">box-edge</a></dd>
 
-    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance">offset-distance</a></dt>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance">offset-distance</a>
+    </dt>
     <dd>定义在 path 上的偏移距离</dd>
     <dd>example: <code>offset-distance: 50%;</code></dd>
 
-    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-position">offset-position</a></dt>
+    <dt><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-position">offset-position</a>
+    </dt>
     <dd>path 缺省起点位置 [example: ray(0deg); circle(80px)] 时，使用 offset-position 定义</dd>
     <dd>normal[default] = <code>50% 50%</code></dd>
     <dd>auto = <code>left top</code></dd>
@@ -769,7 +947,8 @@
     <dd>reverse - <code>auto 180deg</code></dd>
 
     <dt>定义 animation - 见上面，定义@keyframes.</dt>
-    <dd><pre><code>@keyframes {
+    <dd>
+      <pre><code>@keyframes {
   from {
     offset-distance: 0%;
   }
@@ -777,7 +956,8 @@
     offset-distance: 100%;
   }
 }
-</code></pre></dd>
+</code></pre>
+    </dd>
   </dl>
   <style>
     .motion-box {
@@ -787,6 +967,7 @@
       position: relative;
       z-index: 1;
     }
+
     .offset-item {
       position: absolute;
       top: 0;
@@ -795,17 +976,20 @@
       border-radius: 0%;
       animation: offset-move 4s ease infinite;
     }
+
     .offset-item-box {
       background-color: red;
       offset-path: border-box;
     }
+
     .offset-item-path {
       background-color: green;
       offset-anchor: 50%;
       offset-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
     }
+
     .offset-item-ray {
-       /*
+      /*
         <angle>
           0deg 沿着 Y 轴向上；按顺时针方向是正值
           https://developer.mozilla.org/en-US/docs/Web/CSS/angle
@@ -825,6 +1009,7 @@
       offset-path: ray(0deg farthest-corner contain at bottom 0 right 25%);
       /* offset-path: ray(90deg farthest-side at top left); */
     }
+
     .offset-item-rect {
       background-color: #9d93ec;
       /*
@@ -836,6 +1021,7 @@
       */
       offset-path: rect(50px calc(100% - 50px) calc(100% - 50px) 50px round 4px);
     }
+
     .offset-item-inset {
       background-color: #559b24;
       /*
@@ -844,6 +1030,7 @@
       */
       offset-path: inset(80px round 4px);
     }
+
     .offset-item-circle {
       background-color: #f0744b;
       /*
@@ -856,6 +1043,7 @@
       offset-path: circle(80px);
       offset-position: right -80px top 50%;
     }
+
     .offset-item-xywh {
       background-color: #f801ba;
       /*
@@ -864,11 +1052,13 @@
       */
       offset-path: xywh(10px 10px 50% 50%);
     }
+
     @keyframes offset-move {
       0% {
         offset-rotation: reverse;
         offset-distance: 0%;
       }
+
       100% {
         offset-rotation: reverse;
         offset-distance: 100%;
@@ -876,11 +1066,14 @@
     }
   </style>
   <div class="motion-box">
-    <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
       <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
       <desc>Created with Sketch.</desc>
       <defs></defs>
-      <path d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244" id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
+      <path
+        d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244"
+        id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
     </svg>
     <div class="offset-item offset-item-path"></div>
     <div class="offset-item offset-item-ray"></div>
@@ -894,37 +1087,57 @@
   <ul>
     <li><a href="https://www.w3.org/TR/css3-animations/" target="_blank">https://www.w3.org/TR/css3-animations/</a></li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/dashed-ident">&lt;dashed-ident&gt;</a></li>
-    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations">CSS scroll-driven animations</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations">CSS scroll-driven
+        animations</a></li>
     <li><a href="https://scroll-driven-animations.style/">scroll-driven-animations</a></li>
-    <li><a href="https://slidr.io/bramus/scroll-driven-animations-and-view-transitions-2023-06-09-css-day#1">scroll-driven-animations-and-view-transitions</a></li>
+    <li><a
+        href="https://slidr.io/bramus/scroll-driven-animations-and-view-transitions-2023-06-09-css-day#1">scroll-driven-animations-and-view-transitions</a>
+    </li>
     <li><a href="https://github.com/flackr/scroll-timeline?tab=readme-ov-file">scroll-timeline</a></li>
+    <li><a href="https://yuanchuan.dev/time-based-css-animations">Time based css animations</a></li>
+    <li><a href="https://css-tip.com/css-variables-range-slider/">Update CSS variables using range slider</a></li>
+    <li><a href="https://frontendmasters.com/blog/how-to-get-the-width-height-of-any-element-in-only-css/">How to Get
+        the Width/Height of Any Element in Only CSS</a></li>
   </ul>
   <script>
-    var demo = document.getElementById( 'demo' );
-    demo.addEventListener( 'webkitAnimationStart', function(e) {
-      console.log( 'animation-start:', e );
-    }, false );
-    demo.addEventListener( 'webkitAnimationEnd', function(e) {
-      console.log( 'animation-end:', e );
+    var demo = document.getElementById('demo');
+    demo.addEventListener('webkitAnimationStart', function (e) {
+      console.log('animation-start:', e);
     }, false);
-    demo.addEventListener( 'webkitAnimationIteration', function(e) {
-      console.log( 'animation-iteration:', e );
-      setTimeout(function() {
+    demo.addEventListener('webkitAnimationEnd', function (e) {
+      console.log('animation-end:', e);
+    }, false);
+    demo.addEventListener('webkitAnimationIteration', function (e) {
+      console.log('animation-iteration:', e);
+      setTimeout(function () {
         demo.style.WebkitAnimationPlayState = 'running';
       }, 500);
-    }, false );
+    }, false);
 
-    document.getElementById( 'add' ).addEventListener( 'click', function(e) {
-      demo.classList.add( 'enable' );
-    }, false );
-    document.getElementById( 'remove' ).addEventListener( 'click', function(e) {
-      demo.classList.remove( 'enable' );
-    }, false );
+    document.getElementById('add').addEventListener('click', function (e) {
+      demo.classList.add('enable');
+    }, false);
+    document.getElementById('remove').addEventListener('click', function (e) {
+      demo.classList.remove('enable');
+    }, false);
 
     var logo = document.getElementById('logo-sogou-demo');
-    if (location.search.indexOf('hi=yn') > -1) {
+    if (location.search.indexOf('hi=921') > -1) {
       logo.style.display = '';
     }
   </script>
+
+  <style>
+    /*
+      vscode 语法高亮有问题，先放到最后
+      https://caniuse.com/mdn-css_at-rules_property
+    */
+    @property --percentage {
+      syntax: "<integer>";
+      inherits: true;
+      initial-value: 0;
+    }
+  </style>
 </body>
+
 </html>

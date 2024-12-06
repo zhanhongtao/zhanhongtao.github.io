@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+
+<body>
+  <!--
+    https://www.bram.us/2024/09/29/solved-by-css-scroll-driven-animations-hide-a-header-when-scrolling-up-show-it-again-when-scrolling-down/
+  -->
+  <header>
+    <p>CSS scroll-direction detection with Scroll-Driven Animations</p>
+  </header>
+
+  <main>
+    <div class='slider-item'>1</div>
+    <div class='slider-item'>2</div>
+    <div class='slider-item'>3</div>
+    <div class='slider-item'>4</div>
+    <div class='slider-item'>5</div>
+    <div class='slider-item'>6</div>
+    <div class='slider-item'>7</div>
+    <div class='slider-item'>8</div>
+    <div class='slider-item'>9</div>
+  </main>
+
+  <footer>
+    <p>CSS scroll-direction detection with Scroll-Driven Animations</p>
+  </footer>
+
+  <style>
+    /* See https://brm.us/css-scroll-velocity for details */
+
+    main {
+      width: min(600px, 90vw);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      margin: 0 auto;
+    }
+
+    .slider-item {
+      width: 100%;
+      height: min(350px, 70vh);
+      border: 0.5px solid rgba(0, 0, 0, 0.5);
+      display: grid;
+      place-items: center;
+      font: 900 0.85rem helvetica, sans-serif;
+    }
+
+    @property --scroll-position {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @property --scroll-position-delayed {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @keyframes adjust-pos {
+      to {
+        --scroll-position: 1;
+        --scroll-position-delayed: 1;
+      }
+    }
+
+    :root {
+      animation: adjust-pos linear both;
+      animation-timeline: scroll(root);
+    }
+
+    body {
+      transition: --scroll-position-delayed 0.15s linear;
+      /*
+        因为有 tansition-property: --scroll-position-delayed, 因此 --scroll-position 和 --scroll-position-delayed 有差值
+        所以滚动过程中，向下滚动时，--scroll-velocity 为正值; 向上滚动是，为负值;
+        停止时，--scroll-velocity 为 0
+      */
+      --scroll-velocity: calc(var(--scroll-position) - var(--scroll-position-delayed));
+      --scroll-speed: abs(var(--scroll-velocity));
+      /*
+        --scroll-velocity 有正负值，也就有了方向; 1 表示向下; -1 表示向上; 0 表示停止
+      */
+      --scroll-direction: sign(var(--scroll-velocity));
+
+      /*
+        abs(--scroll-direction) 移动过程中为 1, 停止时值为 0
+        那么取反就是 abs(value - 1)
+      */
+      --when-scrolling: abs(var(--scroll-direction));
+      --when-not-scrolling: abs(var(--when-scrolling) - 1);
+
+      /* 也可以用取反 */
+      --when-scrolling-up: min(abs(var(--scroll-direction) - abs(var(--scroll-direction))), 1);
+      --when-scrolling-down: min(var(--scroll-direction) + abs(var(--scroll-direction)), 1);
+
+      --when-scrolling-down-or-when-not-scrolling: clamp(0, var(--scroll-direction) + 1, 1);
+      --when-scrolling-up-or-when-not-scrolling: clamp(0, abs(var(--scroll-direction) - 1), 1);
+
+      --hide-bars: var(--when-scrolling);
+    }
+
+    /* Polyfill for abs() and sign(), thanks to Ana Tudor
+      https://css-tricks.com/using-absolute-value-sign-rounding-and-modulo-in-css-today/#aa-sign
+    */
+    @supports not (scale: abs(-1)) {
+      body {
+        --scroll-speed: max(var(--scroll-velocity), -1 * var(--scroll-velocity));
+        --scroll-direction: calc(var(--scroll-velocity) / var(--scroll-speed));
+
+        /* Only polyfilling --when-scrolling here … */
+        --when-scrolling: max(var(--scroll-direction), -1 * var(--scroll-direction));
+        --hide-bars: var(--when-scrolling);
+      }
+    }
+
+    .slider-item {
+      transition: all 0.25s linear;
+      transform: skew(calc(var(--scroll-velocity) * -25deg));
+      background: hsl(calc(0deg + (145deg * var(--scroll-direction))) 50% 50%);
+    }
+
+    header,
+    footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+
+      min-height: 10vh;
+      padding: 0 10vw;
+      display: grid;
+      place-content: center;
+      background: rgb(255 255 255 / 0.8);
+      border-bottom: 1px solid #ccc;
+      z-index: 2;
+      font-size: 2rem;
+
+      transition: translate 0.5s 0.15s ease-out;
+    }
+
+    header {
+      top: 0;
+      translate: 0 calc(-90% * var(--hide-bars));
+    }
+
+    footer {
+      bottom: 0;
+      translate: 0 calc(90% * var(--hide-bars));
+    }
+  </style>
+</body>
+
+</html>
