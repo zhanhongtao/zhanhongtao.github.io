@@ -1,0 +1,695 @@
+/*
+  generate by https://scrollbar.app/
+*/
+body {
+  --sb-track-color: #e0f4fd;
+  --sb-thumb-color: #515559;
+  --sb-size: 6px;
+}
+
+.scroller::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 4px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 4px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+
+html {
+  font-size: 14px;
+  line-height: 1.8;
+  /* global-play-state */
+  --play-state: running;
+}
+
+h1, h2, h3 { margin: 8px 0px }
+h1 { font-size: 28px }
+h2 { font-size: 24px }
+h3 { font-size: 20px }
+
+pre {
+  white-space: pre-wrap;
+}
+
+
+
+/* sogou-logo */
+.logo-sogou-wrap {
+  padding: 16px 8px;
+  background-color: #9d93ec;
+  max-width: 577px;
+}
+.logo-sogou {
+  width: 100%;
+  aspect-ratio: 577 / 64;
+  background: url(./images/logo-sogou-min.png) no-repeat center 0;
+  background-size: 100% 2400%;
+  animation: logo 4s steps(24, jump-none) .5s infinite;
+  animation-play-state: var(--play-state);
+}
+@keyframes logo {
+  to {
+    background-position: center bottom;
+  }
+}
+
+
+/* 可指定图片大小 background-size */
+.step-twitter-love {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url(./images/web_heart_animation.png) no-repeat 0 0;
+  background-size: 2900%;
+  animation: heart_love 1s steps(29, jump-none) .5s infinite;
+  animation-play-state: var(--play-state);
+}
+
+@keyframes heart_love {
+  to {
+    background-position: right 0;
+  }
+}
+
+
+/* animation-timing-function */
+.timing-function {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  background-color: hsl(210, 80%, 50%);
+  animation: try-timing-function 2s infinite alternate;
+  animation-play-state: var(--play-state);
+}
+
+@keyframes try-timing-function {
+  0% {
+    transform: translate(0);
+    animation-timing-function: linear;
+  }
+  25% {
+    transform: translate(100px);
+    animation-timing-function: ease;
+  }
+  50% {
+    transform: translate(200px);
+    animation-timing-function: ease-in;
+  }
+  75% {
+    transform: translate(300px);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate(400px);
+  }
+}
+
+
+/* steps */
+.steps {
+  display: inline-block;
+  vertical-align: middle;
+  width: 48px;
+  height: 48px;
+  background: url(./images/steps.png) no-repeat 0 0;
+  animation: steps 1.5s steps(3, end) infinite both;
+  /* 可以修改开发者工具查看效果 */
+  animation: steps 1.5s steps(3, jump-none) infinite both;
+  animation-play-state: var(--play-state);
+}
+@keyframes steps {
+  to {
+    /*
+    0 0; -> 1;
+    -48px 0; -> 2;
+    -96px 0; -> 3
+    -144px 0;
+   */
+    background-position: -144px 0;
+    /* step(3, end);  定义 4 个位置，但使用 3 帧，跳过最后一帧 [-144px 0] */
+    background-position: 100% 0;
+  }
+}
+
+
+/* play-state */
+.play-state {
+  width: 50px;
+  height: 72px;
+  background: url(./images/sprite-steps.png) no-repeat 0 0;
+  animation: play-state 1s steps(10, end) infinite;
+  animation-play-state: var(--play-state);
+}
+@keyframes play-state {
+  100% {
+    background-position: -500px 0;
+  }
+}
+
+
+/* queen - background/transform/clip[inset] */
+.queen-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.queen {
+  position: relative;
+  width: 80px;
+  margin: 0 auto 8px;
+}
+
+.queen::before {
+  content: '';
+  display: block;
+  padding-top: 87%;
+}
+
+.queen-background {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen.png) no-repeat 0 0 / 100% 700%;
+  animation: queen-background 1s steps(7, jump-none) 1ms infinite;
+  animation-play-state: var(--play-state);
+}
+.queen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.queen-translate {
+  overflow: hidden
+}
+.queen-translate img {
+  /* 最后一帧为空，忽略 */
+  animation: queen-translate 1s steps(7, end) 1ms infinite backwards;
+  animation-play-state: var(--play-state);
+}
+.queen-clip img {
+  /*
+    0/1/2/3/4/5/6 - 7 步
+    n * 1/7
+    (7-n-1) * 1/7
+  */
+  --from: calc(var(--nth-child) / 7 * 100%);
+  --to: calc((7 - var(--nth-child) - 1) / 7 * 100%);
+  object-view-box: inset(var(--from) 0 var(--to) 0);
+  animation: queen-clip 1s steps(7, jump-none) 1ms infinite;
+  animation-play-state: var(--play-state);
+}
+
+@property --nth-child {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+@keyframes queen-background {
+  to {
+    background-position: 0 100%
+  }
+}
+@keyframes queen-translate {
+  to {
+    translate: 0 -100%
+  }
+}
+@keyframes queen-clip {
+  to {
+    --nth-child: 6
+  }
+}
+
+
+/* composition */
+.composition {
+  width: 50px;
+  aspect-ratio: 1;
+  /*
+    http://www.topcss.org/responsive-sprites/
+    sprits 有 29 张小图 [100 * 100]
+  */
+  background: url(./images/web_heart_animation.png) no-repeat 100% 0 / 2900%;
+  transform: translate(-50px) scale(0.5);
+  animation: composition 1s infinite;
+  animation-play-state: var(--play-state);
+}
+
+.composition-replace {
+  animation-composition: replace;
+  /* 默认值，直接替换 最初 size = Raw * 0.5，结果为 Raw * 2 */
+}
+
+.composition-accumulate {
+  animation-composition: accumulate;
+  /* 值累积，最初 size = Raw * 0.5, 结果为 size + size * 2 = 3 * size = Raw * 1.5  */
+}
+
+.composition-add {
+  animation-composition: add;
+  /* 效果累积，最初 size = Raw * 0.5, 结果为 size * 2 = Raw * 1 */
+}
+
+@keyframes composition {
+  100% {
+    transform: translate(50px) scale(2);
+  }
+}
+
+
+/* scroll-timeline */
+.scroller-wrap {
+  width: 80%;
+  max-width: 600px;
+  margin: 8px 0;
+}
+
+.scroller {
+  margin: 2px 0;
+  height: 100px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  position: relative;
+}
+
+.scroller::after {
+  content: '';
+  display: block;
+  height: 1000px;
+}
+
+/*
+  使用 svg[text] 做背景说明，background-attachment: scroll 来固定位置
+  需要一个工具把 svg 转化为 data:url 格式
+  https://developer.mozilla.org/en-US/docs/Web/URI/Schemes/data
+  https://yoksel.github.io/url-encoder/
+  https://www.svgbackgrounds.com/tools/svg-to-css/
+  https://www.svgviewer.dev/
+  https://www.zhangxinxu.com/wordpress/2018/08/css-svg-background-image-base64-encode/
+*/
+/* svg 文字说明 */
+.scroller {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-attachment: scroll;
+}
+
+.use-scroll-timeline-name {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50'  alignment-baseline='middle' text-anchor='middle'%3E scroll-timeline-name: --scroll;%3C/text%3E%3C/svg%3E");
+}
+
+.use-scroll-fn {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50'  alignment-baseline='middle' text-anchor='middle'%3E animation-timeline: scroll();%3C/text%3E%3C/svg%3E");
+}
+
+.use-timeline-scope {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='150' y='50' alignment-baseline='middle' text-anchor='middle'%3E%3Ctspan dx='0' dy='0em'%3E .parent %7B timeline-scope: --scroll %7D %3C/tspan%3E%3Ctspan x='150' dy='1.2em'%3E%0A.element %7B animation-timeline: --scroll %7D%3C/tspan%3E%3C/text%3E%3C/svg%3E");
+}
+
+.scroll-ani-element-inner {
+  /*
+  有点黑科技味道
+  offset-distance: 0%; // default value
+  */
+  /*
+  position: absolute;
+  offset-path: ray(90deg farthest-side at left top);
+  offset-anchor: left top;
+  offset-distance: 0%;
+  */
+
+  position: sticky;
+  top: 0;
+}
+
+.scroll-ani-element {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #9d93ec;
+  animation: scroll 2s linear both;
+  animation-play-state: var(--play-state);
+}
+
+.animation-timeline {
+  timeline-scope: --scroll-scope;
+}
+
+.scroll-ani-element-help {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  height: 28px;
+  line-height: 28px;
+  background-color: #c4e9aa;
+  translate: 0 -100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.scroll-ani-element-help-default {
+  display: block;
+}
+
+.scroll-ani-element-help-toggle {
+  display: none;
+}
+
+.scroll-ani-element-self {
+  background-color: #e0f4fd;
+  /*
+    animation 需要在 animation-timeline 前面，
+    MDN 中有说明，animation 会把 animation-timeline 重置
+    当 scroll(self) 时，尽管设置了 overflow: hidden, 内容使 scroller 用滚动条时，一样可以让 animation 生效
+  */
+  overflow: hidden;
+  animation: scroll-self 1s;
+  animation-play-state: var(--play-state);
+  animation-timeline: scroll(self);
+  /*
+    基于上面 scroll(self) 在 overflow: hidden 情况下，让 animation 生效的现象：
+    通过设置 z-index 的方式，让 scroller 层级高于“查看更多”操作按钮，也就是内容不够形成滚动条时，让容器覆盖操作按钮
+    当形成滚动条，animation 动画的 @keyframes 设置 z-index 低于操作按钮
+  */
+  z-index: 3;
+
+  line-height: 1.6;
+  font-size: 16px;
+  padding: 4px 8px;
+  margin-bottom: 0;
+
+  /*
+    需要让 height: 100px 到 height: fit-content 的 transition 生效，
+    需要设置 interpolate-size: allow-keywords;
+    2024/12/05: 把 interpolate-size 放到 :root 上会导致部分 scroll-timeline 失效
+    https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
+    https://caniuse.com/mdn-css_properties_interpolate-size
+
+    类似关键字
+    @starting-style
+    transition-behavior: allow-discrete;
+    https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+    https://developer.chrome.com/blog/entry-exit-animations
+    https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior
+  */
+  transition: height 1.5s ease;
+  interpolate-size: allow-keywords;
+}
+
+:root {
+  /* interpolate-size: allow-keywords; */
+}
+
+.scroll-ani-element-self-trigger {
+  height: fit-content;
+  /*
+    除了使用 interpolate-size: allow-keywords 外，还可以使用 calc-size 来实现
+    https://developer.chrome.com/docs/css-ui/animate-to-height-auto
+    https://drafts.csswg.org/css-values-5/#calc-size
+    https://caniuse.com/mdn-css_types_calc-size
+  */
+  height: calc-size(fit-content, size);
+}
+
+.scroll-ani-element-self::after {
+  display: none;
+}
+
+.scroll-ani-element-self-trigger+.scroll-ani-element-help {
+  translate: 0;
+}
+
+.scroll-ani-element-self-trigger+.scroll-ani-element-help .scroll-ani-element-help-default {
+  display: none;
+}
+
+.scroll-ani-element-self-trigger+.scroll-ani-element-help .scroll-ani-element-help-toggle {
+  display: block;
+}
+
+@keyframes scroll-self {
+
+  from,
+  to {
+    z-index: 1;
+  }
+}
+
+@keyframes scroll {
+  to {
+    width: 100%;
+  }
+}
+
+
+/* view-timeline */
+/*
+  https://caniuse.com/mdn-css_at-rules_property
+*/
+@property --percentage {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.animation-timeline {
+  view-timeline: --view;
+  --percentage: 0
+}
+
+body {
+  timeline-scope: --view
+}
+
+.view-scope {
+  height: 2px;
+  animation: display-percentage linear;
+  animation-play-state: var(--play-state);
+  animation-timeline: --view;
+  background-color: #559b24;
+  width: calc(1% * var(--percentage));
+  position: relative;
+}
+
+.view-scope::after {
+  position: absolute;
+  right: -4px;
+  top: 0;
+  translate: 100% -50%;
+  font-size: 0.98em;
+  /*
+    counter-reset 相当于 initial
+  */
+  counter-reset: percentage var(--percentage);
+  counter-set: percentage var(--percentage);
+  content: counter(percentage) "%";
+}
+
+@keyframes display-percentage {
+  to {
+    --percentage: 100
+  }
+}
+
+
+/* multiple-animation */
+.mul-d0,
+.mul-d1,
+.mul-other {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: hsl(340, 50%, 50%);
+  position: relative;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  will-change: left, top, transform;
+}
+
+.mul-d0 {
+  animation: vh 1.5s linear infinite both alternate;
+  animation-play-state: var(--play-state);
+}
+
+.mul-d1 {
+  animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
+  animation-play-state: var(--play-state);
+}
+
+.mul-other {
+  background-color: transparent;
+  animation: ht 1.5s linear infinite both alternate;
+  animation-play-state: var(--play-state);
+}
+
+.mul-other:after {
+  content: '';
+  display: block;
+  background: hsl(270, 50%, 50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: vt 1.5s ease infinite both alternate;
+  animation-play-state: var(--play-state);
+}
+
+@keyframes v {
+  to {
+    top: 160px;
+  }
+}
+
+@keyframes h {
+  to {
+    left: 160px;
+  }
+}
+
+@keyframes vt {
+  to {
+    transform: translate3D(0, 160px, 0);
+  }
+}
+
+@keyframes ht {
+  to {
+    transform: translate3D(160px, 0, 0);
+  }
+}
+
+@keyframes vh {
+  to {
+    transform: translate(160px, 160px);
+  }
+}
+
+
+/* offset-path */
+.motion-box {
+  width: 100%;
+  max-width: 502px;
+  aspect-ratio: 502 / 202;
+  background-color: #faf7f7;
+  position: relative;
+  z-index: 1;
+}
+
+.motion-box svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.offset-item {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 0%;
+  animation: offset-move 4s ease infinite;
+  animation-play-state: var(--play-state);
+}
+
+.offset-item-box {
+  background-color: red;
+  offset-path: border-box;
+}
+
+.offset-item-path {
+  background-color: green;
+  offset-anchor: 50%;
+  offset-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
+}
+
+.offset-item-ray {
+  /*
+    <angle>
+      0deg 沿着 Y 轴向上；按顺时针方向是正值
+      https://developer.mozilla.org/en-US/docs/Web/CSS/angle
+    <size>
+      closest-side[default] 起点与包含块最近的边的距离，如果起点在边上，size=0
+      closest-corner        起点与包含块最近的角的距离，如果起点在角上，size=0
+      farthest-side         起点与包含块最远的边的距离
+      farthest-corner       起点与包含块最远的角的距离
+      sides                 起点与包含块边相交点的距离，如果不相交时，size=0
+    contain
+      保证在包含块内 - Math.max(distance - width/2, distance - height/2)
+    at <position>
+      缺省时，使用 offset-position；offset-position 默认值 50% 50%
+      和 offset-position 同时存在时，优先级高于 offset-position
+  */
+  background-color: lightblue;
+  offset-path: ray(0deg farthest-corner contain at bottom 0 right 25%);
+  /* offset-path: ray(90deg farthest-side at top left); */
+}
+
+.offset-item-rect {
+  background-color: #9d93ec;
+  /*
+    rect
+    https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/rect
+    第一个值和第三个值，从 top 拉线 - 需要保证第一个值小于第三个值，否则切成空
+    第二个值和第四个值，从 left 拉线 - 需要保证第四个值小于第二个值，否则切成空
+    值可以是 auto - 四个位置的默认值是：0, 100%, 100%, 0
+  */
+  offset-path: rect(50px calc(100% - 50px) calc(100% - 50px) 50px round 4px);
+}
+
+.offset-item-inset {
+  background-color: #559b24;
+  /*
+    inset 语法简单，从 top/right/bottom/left 四个方向计算值
+    https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/inset
+  */
+  offset-path: inset(80px round 4px);
+}
+
+.offset-item-circle {
+  background-color: #f0744b;
+  /*
+    circle
+      <share-radius>
+        closest-side
+        farthest-side
+    https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/circle
+  */
+  offset-path: circle(80px);
+  offset-position: right -80px top 50%;
+}
+
+.offset-item-xywh {
+  background-color: #f801ba;
+  /*
+    https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/xywh
+    xywh(x y w h round ...)
+  */
+  offset-path: xywh(10px 10px 50% 50%);
+}
+
+@keyframes offset-move {
+  0% {
+    offset-rotation: reverse;
+    offset-distance: 0%;
+  }
+
+  100% {
+    offset-rotation: reverse;
+    offset-distance: 100%;
+  }
+}
