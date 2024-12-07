@@ -339,6 +339,7 @@
   <button id="add">Add</button>
   <button id="pause">Pause</button>
   <button id="resume">Resume</button>
+  <button id="reverse">Reverse</button>
   <button id="remove">Remove</button>
   <div id="demo"></div>
 
@@ -374,6 +375,12 @@
     }, false);
     document.getElementById('resume').addEventListener('click', function (e) {
       demo.style.setProperty('--play-state', 'running')
+    }, false);
+    document.getElementById('reverse').addEventListener('click', function (e) {
+      const animations = demo.getAnimations()
+      animations.forEach(animation => {
+        animation.reverse()
+      })
     }, false);
 
     var logo = document.getElementById('logo-sogou-demo');
