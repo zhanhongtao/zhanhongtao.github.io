@@ -95,6 +95,65 @@
     </div>
   </div>
 
+  <h3>none -> block</h3>
+  <dl>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" target="_blank">@starting-style</a></dt>
+    <dd>设置动画开始时的样式</dd>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior" target="_blank">transition-behavior</a></dt>
+    <dd>allow-discrete 设置动画支持离散值</dd>
+    <dd>
+      <button id="starting-style-action">Toggle Active</button>
+      <div style="display: flex; gap: 8px; margin-top: 8px;">
+        <div class="starting-style transition-starting-style"></div>
+        <div class="starting-style animation-starting-style"></div>
+      </div>
+    </dd>
+    <style>
+      .starting-style {
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+        display: none;
+        opacity: 0;
+      }
+      .transition-starting-style {
+        background-color: hsl(228, 88%, 81%);
+        transition: 1.5s linear;
+        transition-behavior: allow-discrete;
+      }
+      .transition-starting-style.starting-style-active {
+        display: block;
+        opacity: 1;
+        /* 从 none 到 block, 需要优先设置 starting-style */
+        @starting-style {
+          opacity: 0;
+        }
+      }
+
+      .animation-starting-style {
+        background-color: hsl(315, 88%, 81%);
+      }
+      .animation-starting-style.starting-style-active {
+        display: block;
+        animation: animation-starting-style 1.5s linear forwards;
+      }
+      @keyframes animation-starting-style {
+        from { opacity: 0 }
+        to { opacity: 1 }
+      }
+    </style>
+    <script>
+      let node = document.getElementById('starting-style-action')
+      let targets = document.querySelectorAll('.starting-style')
+      node.addEventListener('click', () => {
+        targets.forEach(target => {
+          target.classList.toggle('starting-style-active')
+        })
+      })
+    </script>
+  </dl>
+
+
   <h3>动画合成</h3>
   <dl>
     <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-composition">animation-composition</a></dt>
